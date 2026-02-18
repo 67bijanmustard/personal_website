@@ -1,3 +1,60 @@
+/* 1. Define the Variables */
+:root {
+  --bg-color: #f9fafc;
+  --text-color: #333;
+  --card-bg: #ffffff;
+  --nav-bg: #3a6cf4;
+  --section-bg: #f9fafc;
+}
+
+/* 2. Dark Mode Overrides */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #f1f1f1;
+  --card-bg: #1e1e1e;
+  --nav-bg: #1a1a1a;
+  --section-bg: #1a1a1a;
+}
+
+/* 3. Apply the variables */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Update all sections to use variables instead of hardcoded hex codes */
+nav, .navbar {
+  background-color: var(--nav-bg) !important;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-section, .resources-section, .about-section {
+  background-color: var(--bg-color) !important;
+}
+
+.dashboard-card, .resource-card, .calendar-grid div {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* Ensure text is readable in dark mode */
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode p {
+  color: var(--text-color);
+}
+
+nav {
+  background-color: var(--nav-bg) !important;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
@@ -36,4 +93,479 @@ nav a:hover {
   background: linear-gradient(120deg, #3a6cf4, #8ac4ff);
   color: white;
   border-radius: 0 0 2rem 2rem;
+  font-size: 40px;
 }
+
+
+
+.dashboard-section {
+  background: #ffffff;
+  text-align: center;
+}
+
+.dashboard-section h1 {
+  font-size: 2.8rem;
+}
+
+.dashboard-subtitle {
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.dashboard-grid {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.dashboard-card {
+  background: #f9fafc;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  text-align: left;
+}
+
+.dashboard-card h3 {
+  margin-bottom: 15px;
+}
+
+/* Progress Bar */
+.progress-bar {
+  background: #e0e6f0;
+  height: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4f6cff, #6a8dff);
+  border-radius: 10px;
+  /* Add this line for a professional 'polished' feel */
+  transition: width 0.5s ease-in-out; 
+}
+
+#about {
+  background-color: white;
+}
+
+#about h1 {
+  color: black;
+  font-size: 40px;
+  padding: 100px 100px;
+}
+
+#about p {
+  color: black;
+}
+
+.about-section {
+  background: #f9fafc;
+}
+
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;   /* Vertically center text with image */
+  justify-content: center; /* Center content horizontally */
+  gap: 50px;
+  padding: 60px 20px;
+}
+
+.about-text {
+  flex: 1 1 500px;
+  text-align: center; /* Center all text */
+}
+
+.about-text h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+}
+
+.about-subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.about-block {
+  margin-bottom: 30px;
+}
+
+.about-block h2 {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  color: #1a73e8;
+}
+
+.about-values {
+  list-style: none; /* Remove default bullets */
+  padding: 0;
+}
+
+.about-values li {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center; /* Center the icon and text */
+  gap: 8px; /* Space between icon and text */
+  line-height: 1.5;
+}
+
+.about-image {
+  flex: 1 1 600px; /* Make image bigger */
+  text-align: center;
+}
+
+.about-image img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+
+
+/* Scroll Reveal Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#schedule {
+  background: linear-gradient(120deg, #3a6cf4, #8ac4ff);
+  padding: 30px 60px;
+}
+
+#schedule h1 {
+  color: white;
+}
+
+#schedule p {
+  color: white;
+}
+
+#resources {
+  background: linear-gradient(120deg, #3a6cf4, #8ac4ff);
+  padding: 30px 60px;
+}
+
+#resources h1 {
+  color: white;
+}
+
+#resources p {
+  color: white;
+}
+
+.resources-section {
+  background: #f9fafc;
+  text-align: center;
+}
+
+.resources-section h1 {
+  font-size: 2.8rem;
+}
+
+.resources-subtitle {
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.resources-grid {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.resource-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.resource-card h3 {
+  margin-bottom: 10px;
+}
+
+.resource-card button {
+  background: #4f6cff;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.resource-card button:hover {
+  background: #3c57d6;
+}
+
+/* Quiz Box */
+.quiz-box {
+  display: none;
+  max-width: 400px;
+  margin: 40px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+.quiz-box button {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.close-btn {
+  background: #aaa;
+}
+
+.calendar-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.calendar-header button {
+  background: #3a6cf4;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.calendar-grid div {
+  padding: 0.7rem;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.calendar-grid div:hover {
+  background: #eaf0ff;
+}
+
+.calendar-grid .has-session {
+  background: #3a6cf4;
+  color: white;
+  font-weight: bold;
+}
+
+#sessionInfo h3 {
+  color: white;
+}
+
+section {
+  scroll-margin-top: 90px;
+  min-height: 60vh;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background: #1e40af;
+}
+
+.note {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 15px;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: white; /* or your site’s background */
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
+}
+
+.navbar.scrolled {
+  padding: 8px 24px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  margin-left: 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.navbar a.nav-btn {
+  padding: 6px 12px;
+  background: #2563eb;
+  color: white;
+  border-radius: 6px;
+}
+
+.navbar a.nav-btn:hover {
+  background: #1e40af;
+}
+
+.quiz-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+  background: #fff;
+}
+
+.quiz-container button {
+  padding: 10px 20px;
+  margin: 8px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.quiz-container button:hover {
+  background-color: #1e40af;
+}
+
+.quiz-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1e1e2f;
+  color: white;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  z-index: 9999;
+}
+
+.quiz-box button {
+  margin-top: 10px;
+  background: #6c63ff;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Accessibility: High Contrast for Headers */
+h1, h2, h3 {
+  color: #1a237e; /* Darker blue for better contrast ratio */
+}
+
+/* 3-Platform Compatibility (Media Queries) */
+@media (max-width: 1024px) {
+  /* Tablet View */
+  .about-container { gap: 20px; padding: 40px; }
+  .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  /* Mobile View */
+  .navbar ul { display: none; } /* Hide menu or add hamburger icon later */
+  .about-container { flex-direction: column; text-align: center; }
+  .dashboard-grid, .resources-grid { grid-template-columns: 1fr; }
+  .hero { font-size: 28px; padding: 2rem 1rem; }
+}
+
+/* Polished Progress Bar Animation */
+.progress-fill {
+  width: 0%; /* Start at 0 */
+  height: 100%;
+  background: linear-gradient(90deg, #3a6cf4, #8ac4ff);
+  transition: width 1s ease-in-out; /* Smooth growth animation */
+  border-radius: 10px;
+}
+
+/* Hover Effects for "User Experience" points */
+.resource-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  transition: 0.3s;
+}
+

@@ -2,23 +2,217 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>StudySphere - Home</title>
+  <title>SolveSpace - Home</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <nav>
-    <h2>StudySphere</h2>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="schedule.html">Schedule</a></li>
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="resources.html">Resources</a></li>
-    </ul>
-  </nav>
 
-  <section class="hero">
-    <h1>Welcome to StudySphere</h1>
-    <p>Connect, Learn, and Grow with peer tutors and study resources.</p>
+<body>
+
+  <nav class="navbar">
+  <div class="nav-logo">SolveSpace</div>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#dashboard">Dashboard</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="login.html" class="nav-btn">Sign In</a></li>
+    <li><button id="theme-toggle" onclick="toggleDarkMode()" style="background:none; border:1px solid white; color:white; cursor:pointer; border-radius:5px; padding:5px 10px;">🌙 Dark Mode</button></li>
+  </ul>
+</nav>
+  <!--Home-->
+  <section id="home" class="hero">
+    <h1>SolveSpace</h1>
+    <p>Student-led tutoring, group study, and interactive math resources.</p>
   </section>
+
+  <!-- About Us -->
+<section id="about" class="page reveal about-section">
+  <div class="about-container">
+    
+    <!-- Text Section -->
+    <div class="about-text">
+      <h1>About SolveSpace</h1>
+      <p class="about-subtitle">
+        A student-created math learning hub built for collaboration, clarity, and confidence.
+      </p>
+
+      <!-- Mission -->
+      <div class="about-block">
+        <h2> Our Mission</h2>
+        <p>To make math accessible and fun for all students through peer tutoring, group study sessions, and interactive resources.</p>
+      </div>
+
+      <!-- Core Values -->
+      <div class="about-block">
+        <h2> Our Core Values</h2>
+        <ul class="about-values">
+          <li> <strong>Collaboration:</strong> Working together to solve problems.</li>
+          <li> <strong>Growth:</strong> Supporting students to improve and succeed.</li>
+          <li> <strong>Innovation:</strong> Creative ways to learn and practice math.</li>
+          <li> <strong>Confidence:</strong> Helping students believe in their abilities.</li>
+        </ul>
+      </div>
+
+      <!-- Why Join -->
+      <div class="about-block">
+        <h2> Why Join SolveSpace?</h2>
+        <ul class="about-values">
+          <li>Access to live tutoring sessions and group study events.</li>
+          <li>Track your learning progress easily.</li>
+          <li>Explore lessons, videos, quizzes, and worksheets in one place.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Image Section -->
+    <div class="about-image">
+      <img src="https://image2url.com/r2/default/images/1768969712677-275d0bbb-f30a-4e47-993d-532ad910c974.jpg" alt="Students learning math together">
+    </div>
+  </div>
+</section>
+
+  <!--Schedule-->
+  <section id="schedule" class="page reveal">
+    <h1>Tutoring Schedule</h1>
+
+    <div class="calendar-container">
+      <div class="calendar-header">
+        <button id="prevMonth">‹</button>
+        <h2 id="monthYear"></h2>
+        <button id="nextMonth">›</button>
+      </div>
+
+      <div class="calendar-grid" id="calendar"></div>
+    </div>
+
+    <div class="session-info card" id="sessionInfo">
+      <p>Select a date to view tutoring sessions.</p>
+    </div>
+  </section>
+
+  <!--Dashboard-->
+  <section id="dashboard" class="page reveal dashboard-section">
+  <h1>Student Dashboard</h1>
+  <p class="dashboard-subtitle">Track your learning progress and upcoming sessions</p>
+
+  <div class="dashboard-grid">
+    <div class="dashboard-card">
+      <h3>📈 Learning Progress</h3>
+      <div class="progress-bar">
+        <div id="progress-fill" class="progress-fill" style="width: 0%;"></div>
+      </div>
+      <p id="progress-text">0% of course completed</p>
+    </div>
+
+    <div class="dashboard-card">
+      <h3>✅ Completed Activities</h3>
+      <ul>
+        <li>Algebra Basics Quiz</li>
+        <li>Linear Equations Lesson</li>
+        <li>Functions Practice Set</li>
+      </ul>
+    </div>
+
+    <div class="dashboard-card">
+      <h3>📅 Upcoming Tutoring</h3>
+      <p>Wednesday — Algebra Help</p>
+      <p>Friday — Geometry Study Group</p>
+    </div>
+  </div>
+</section>
+
+  <!--Resources-->
+ <section id="resources" class="page reveal resources-section">
+    <h1>Learning Resources</h1>
+    <input type="text" id="resourceSearch" onkeyup="filterResources()" placeholder="Search lessons (e.g. Algebra)..." style="padding:10px; width:80%; max-width:400px; margin-bottom:20px; border-radius:8px; border:1px solid #ccc;">
+    
+    <div class="resources-grid">
+        </div>
+</section>
+
+  <!-- Lesson Card -->
+  <div class="resource-card">
+    <h3>📘 Algebra Lessons</h3>
+    <p>Step-by-step explanations covering equations, inequalities, and functions.</p>
+    <button onclick="openLesson()">Start Lesson</button>
+  </div>
+
+  <!-- Video Card -->
+  <div class="resource-card">
+    <h3>🎥 Video Tutorials</h3>
+    <p>Short videos explaining key math topics with examples.</p>
+    <button onclick="openVideo()">Watch Videos</button>
+  </div>
+
+  <!-- Quiz Card -->
+  <div class="resource-card">
+    <h3>📝 Practice Quiz</h3>
+    <p>Test your understanding with quick interactive questions.</p>
+    <button onclick="showQuiz()">Take Quiz</button>
+  </div>
+
+  <!-- Worksheet Card -->
+  <div class="resource-card">
+  <h3>📄 Worksheets</h3>
+  <p>Download practice problems and guided notes.</p>
+  <button onclick="downloadWorksheet()">Download PDF</button>
+</div>
+
+<!-- Lesson Modal -->
+<div id="lesson-box" class="quiz-box" style="display:none;">
+  <h3 id="lesson-title"></h3>
+  <p id="lesson-content"></p>
+
+  <div style="display:flex; justify-content: space-between; margin-top: 10px;">
+    <button onclick="prevLesson()">⬅ Prev</button>
+    <button onclick="nextLesson()">Next ➡</button>
+  </div>
+
+  <button onclick="closeLesson()" style="margin-top:12px;">Close</button>
+</div>
+
+<!-- Video Modal -->
+<div id="video-box" class="quiz-box" style="display:none;">
+  <h3>Video Tutorials</h3>
+
+  <select onchange="loadVideo(this.value)">
+    <option value="Ft2_QtXAnh8">Linear Equations</option>
+    <option value="SaImpSmMb9Q">Distributive Property</option>
+    <option value="MHeirBPOI6w">Combining Like Terms</option>
+  </select>
+
+  <iframe id="video-frame" width="100%" height="250"
+    src="https://www.youtube.com/embed/7mZ3zG8h2mk"
+    frameborder="0" allowfullscreen>
+  </iframe>
+
+  <button onclick="closeVideo()">Close</button>
+</div>
+
+</div>
+
+
+    <div id="quiz-box" class="quiz-box" style="display:none;">
+  <h3 id="quiz-question"></h3>
+
+  <div class="quiz-options">
+    <button></button>
+    <button></button>
+    <button></button>
+    <button></button>
+  </div>
+
+  <p id="quiz-result"></p>
+
+  <div style="display:flex; justify-content: space-between;">
+    <button onclick="nextQuestion()">Next</button>
+    <button onclick="closeQuiz()">Close</button>
+  </div>
+</div>
+
+  </section>
+
+  <script src="script.js"></script>
 </body>
 </html>
