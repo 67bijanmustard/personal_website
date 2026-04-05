@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SolveSpace – Algebra Lessons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lesson.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">SolveSpace</a>
+  <a href="index.html#resources" class="nav-back">← Back to Resources</a>
+</nav>
+
+<div class="lesson-hero">
+  <span class="subject-badge">📘 Algebra</span>
+  <h1>Equations &amp; Inequalities</h1>
+  <p>Master solving linear equations and inequalities step by step — from basics to multi-step problems.</p>
+  <div class="lesson-progress-bar">
+    <div class="lesson-progress-fill" id="progress-fill"></div>
+  </div>
+</div>
+
+<main>
+  <a href="index.html#resources" class="back-link">← Resources</a>
+
+  <!-- TABS -->
+  <div class="lesson-tabs">
+    <button class="tab-btn active" onclick="showTab(0)" id="tab-0">📖 <span>Lesson 1</span></button>
+    <button class="tab-btn" onclick="showTab(1)" id="tab-1">📖 <span>Lesson 2</span></button>
+    <button class="tab-btn" onclick="showTab(2)" id="tab-2">📖 <span>Lesson 3</span></button>
+    <button class="tab-btn" onclick="showTab(3)" id="tab-3">🧠 <span>Practice</span></button>
+  </div>
+
+  <!-- PANEL 0: Solving One-Step Equations -->
+  <div class="lesson-panel active" id="panel-0">
+    <h2>⚖️ Solving One-Step Equations</h2>
+    <p>An equation is a mathematical statement that two expressions are equal. To <strong>solve</strong> an equation means to find the value of the variable that makes it true.</p>
+
+    <div class="concept-box">
+      <div class="concept-label">Key Concept</div>
+      <p>Whatever you do to one side of an equation, you must do to the other. This keeps the equation balanced.</p>
+    </div>
+
+    <h3>The Four Operations</h3>
+    <p>You can solve one-step equations using inverse (opposite) operations:</p>
+    <ul>
+      <li>If a number is <strong>added</strong>, subtract it from both sides</li>
+      <li>If a number is <strong>subtracted</strong>, add it to both sides</li>
+      <li>If a number is <strong>multiplied</strong>, divide both sides by it</li>
+      <li>If a number is <strong>divided</strong>, multiply both sides by it</li>
+    </ul>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 1 — Addition</div>
+      <div class="example-body">
+        <div class="example-problem">Solve:&nbsp;&nbsp; x + 7 = 12</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">7 is being added to x. To undo addition, use subtraction.</div>
+        <ol class="steps">
+          <li>Identify the operation: 7 is being <em>added</em> to x</li>
+          <li>Subtract 7 from both sides: &nbsp; x + 7 − 7 = 12 − 7</li>
+          <li>Simplify: &nbsp; x = 5</li>
+          <li>Check: &nbsp; 5 + 7 = 12 ✅</li>
+        </ol>
+        <div class="formula"><span class="hi">x + 7</span> = 12
+x + 7 <span class="op">− 7</span> = 12 <span class="op">− 7</span>
+x = <span class="ans">5</span></div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 2 — Multiplication</div>
+      <div class="example-body">
+        <div class="example-problem">Solve:&nbsp;&nbsp; 4x = 28</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">4 is being multiplied by x. To undo multiplication, divide both sides by 4.</div>
+        <ol class="steps">
+          <li>Identify the operation: x is being <em>multiplied</em> by 4</li>
+          <li>Divide both sides by 4: &nbsp; 4x ÷ 4 = 28 ÷ 4</li>
+          <li>Simplify: &nbsp; x = 7</li>
+          <li>Check: &nbsp; 4 × 7 = 28 ✅</li>
+        </ol>
+        <div class="formula"><span class="hi">4x</span> = 28
+4x <span class="op">÷ 4</span> = 28 <span class="op">÷ 4</span>
+x = <span class="ans">7</span></div>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <span></span>
+      <button class="btn-nav btn-next" onclick="showTab(1)">Next: Multi-Step Equations →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 1: Multi-Step Equations -->
+  <div class="lesson-panel" id="panel-1">
+    <h2>🔢 Multi-Step Equations</h2>
+    <p>When an equation has multiple operations, you solve it by working in <strong>reverse order of operations</strong> — undo addition/subtraction first, then multiplication/division.</p>
+
+    <div class="concept-box">
+      <div class="concept-label">Key Concept</div>
+      <p>Always undo addition and subtraction before multiplication and division. Think of it as "peeling the onion" from the outside in.</p>
+    </div>
+
+    <h3>Two-Step Equations</h3>
+    <p>The form <strong>ax + b = c</strong> is the most common. Follow these two steps every time:</p>
+    <ol class="steps">
+      <li>Add or subtract the constant (b) from both sides</li>
+      <li>Multiply or divide both sides by the coefficient (a)</li>
+    </ol>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 1 — Two-Step</div>
+      <div class="example-body">
+        <div class="example-problem">Solve:&nbsp;&nbsp; 2x + 4 = 10</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">First remove the +4 by subtracting 4 from both sides. Then deal with the 2x.</div>
+        <ol class="steps">
+          <li>Subtract 4 from both sides: &nbsp; 2x + 4 − 4 = 10 − 4 → 2x = 6</li>
+          <li>Divide both sides by 2: &nbsp; 2x ÷ 2 = 6 ÷ 2 → x = 3</li>
+          <li>Check: &nbsp; 2(3) + 4 = 6 + 4 = 10 ✅</li>
+        </ol>
+        <div class="formula"><span class="hi">2x + 4</span> = 10
+2x + 4 <span class="op">− 4</span> = 10 <span class="op">− 4</span>
+2x = 6
+2x <span class="op">÷ 2</span> = 6 <span class="op">÷ 2</span>
+x = <span class="ans">3</span></div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 2 — Variables on Both Sides</div>
+      <div class="example-body">
+        <div class="example-problem">Solve:&nbsp;&nbsp; 5x − 3 = 2x + 9</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Collect all x terms on one side first by subtracting 2x from both sides.</div>
+        <ol class="steps">
+          <li>Subtract 2x from both sides: &nbsp; 3x − 3 = 9</li>
+          <li>Add 3 to both sides: &nbsp; 3x = 12</li>
+          <li>Divide both sides by 3: &nbsp; x = 4</li>
+          <li>Check: &nbsp; 5(4) − 3 = 17 &nbsp;and&nbsp; 2(4) + 9 = 17 ✅</li>
+        </ol>
+        <div class="formula"><span class="hi">5x − 3</span> = <span class="hi">2x + 9</span>
+5x <span class="op">− 2x</span> − 3 = 2x <span class="op">− 2x</span> + 9
+3x − 3 = 9
+3x = <span class="ans">12</span>
+x = <span class="ans">4</span></div>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(0)">← Lesson 1</button>
+      <button class="btn-nav btn-next" onclick="showTab(2)">Next: Inequalities →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 2: Inequalities -->
+  <div class="lesson-panel" id="panel-2">
+    <h2>📊 Solving Inequalities</h2>
+    <p>Inequalities are like equations, but instead of <strong>=</strong> they use <strong>&lt;</strong>, <strong>&gt;</strong>, <strong>≤</strong>, or <strong>≥</strong>. You solve them almost the same way — with one important exception.</p>
+
+    <div class="concept-box">
+      <div class="concept-label">⚠️ Critical Rule</div>
+      <p>When you multiply or divide both sides of an inequality by a <strong>negative number</strong>, you must <strong>flip the inequality sign</strong>.</p>
+    </div>
+
+    <h3>Inequality Symbols</h3>
+    <ul>
+      <li><strong>&lt;</strong> — less than (open circle on number line)</li>
+      <li><strong>&gt;</strong> — greater than (open circle on number line)</li>
+      <li><strong>≤</strong> — less than or equal to (closed circle on number line)</li>
+      <li><strong>≥</strong> — greater than or equal to (closed circle on number line)</li>
+    </ul>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 1 — Basic Inequality</div>
+      <div class="example-body">
+        <div class="example-problem">Solve and graph:&nbsp;&nbsp; x + 3 &gt; 7</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Treat it like an equation — subtract 3 from both sides. The sign stays the same.</div>
+        <ol class="steps">
+          <li>Subtract 3 from both sides: &nbsp; x + 3 − 3 &gt; 7 − 3</li>
+          <li>Simplify: &nbsp; x &gt; 4</li>
+          <li>Graph: open circle at 4, arrow pointing right →</li>
+        </ol>
+        <div class="formula">x + 3 <span class="op">&gt;</span> 7
+x &gt; <span class="ans">4</span>
+Graph: ○────────&gt; (open circle at 4)</div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 2 — Flip the Sign!</div>
+      <div class="example-body">
+        <div class="example-problem">Solve:&nbsp;&nbsp; −3x ≤ 12</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">You need to divide by −3. Since it's negative, flip the ≤ to ≥!</div>
+        <ol class="steps">
+          <li>Divide both sides by −3 (NEGATIVE → flip the sign!)</li>
+          <li>−3x ÷ (−3) ≥ 12 ÷ (−3)</li>
+          <li>x ≥ −4</li>
+          <li>Graph: closed circle at −4, arrow pointing right →</li>
+        </ol>
+        <div class="formula">−3x <span class="op">≤</span> 12
+÷(−3) on both sides → <span class="op">FLIP SIGN</span>
+x ≥ <span class="ans">−4</span>
+Graph: ●────────&gt; (closed circle at −4)</div>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(1)">← Lesson 2</button>
+      <button class="btn-nav btn-next" onclick="showTab(3)">Take the Quiz →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 3: Quiz -->
+  <div class="lesson-panel" id="panel-3">
+    <h2>📝 Algebra Quiz</h2>
+    <p style="margin-bottom:1.5rem">Test what you've learned! Select the best answer for each question.</p>
+
+    <div id="quiz-container">
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 1 of 5</div>
+        <div class="q-text">Solve for x:&nbsp; x + 9 = 15</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q1')">x = 24</button>
+          <button class="q-option" onclick="answer(this, true,  'q1')">x = 6</button>
+          <button class="q-option" onclick="answer(this, false, 'q1')">x = 5</button>
+          <button class="q-option" onclick="answer(this, false, 'q1')">x = 9</button>
+        </div>
+        <div class="q-feedback" id="fb-q1"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 2 of 5</div>
+        <div class="q-text">Solve for x:&nbsp; 3x = 21</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q2')">x = 63</button>
+          <button class="q-option" onclick="answer(this, false, 'q2')">x = 8</button>
+          <button class="q-option" onclick="answer(this, true,  'q2')">x = 7</button>
+          <button class="q-option" onclick="answer(this, false, 'q2')">x = 18</button>
+        </div>
+        <div class="q-feedback" id="fb-q2"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 3 of 5</div>
+        <div class="q-text">Solve for x:&nbsp; 2x + 5 = 13</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q3')">x = 9</button>
+          <button class="q-option" onclick="answer(this, true,  'q3')">x = 4</button>
+          <button class="q-option" onclick="answer(this, false, 'q3')">x = 3</button>
+          <button class="q-option" onclick="answer(this, false, 'q3')">x = 6</button>
+        </div>
+        <div class="q-feedback" id="fb-q3"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 4 of 5</div>
+        <div class="q-text">Solve for x:&nbsp; 4x − 3 = 2x + 7</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q4')">x = 2</button>
+          <button class="q-option" onclick="answer(this, false, 'q4')">x = 7</button>
+          <button class="q-option" onclick="answer(this, true,  'q4')">x = 5</button>
+          <button class="q-option" onclick="answer(this, false, 'q4')">x = 4</button>
+        </div>
+        <div class="q-feedback" id="fb-q4"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 5 of 5</div>
+        <div class="q-text">Solve the inequality:&nbsp; −2x &gt; 8</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q5')">x &gt; −4</button>
+          <button class="q-option" onclick="answer(this, false, 'q5')">x &gt; 4</button>
+          <button class="q-option" onclick="answer(this, true,  'q5')">x &lt; −4</button>
+          <button class="q-option" onclick="answer(this, false, 'q5')">x &lt; 4</button>
+        </div>
+        <div class="q-feedback" id="fb-q5"></div>
+      </div>
+
+    </div>
+
+    <div class="quiz-result-box" id="quiz-result">
+      <div class="result-emoji" id="result-emoji">🏆</div>
+      <h3 id="result-title">Quiz Complete!</h3>
+      <p id="result-msg"></p>
+      <button class="btn-retry" onclick="retryQuiz()">Try Again</button>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(2)">← Lesson 3</button>
+      <button class="btn-nav btn-finish" onclick="finishLesson()">✓ Complete Lesson</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>© 2026 SolveSpace · <a href="index.html">Home</a> · <a href="index.html#resources">All Resources</a></footer>
+
+<script>
+  // ── TAB NAVIGATION ──────────────────────────────
+  const tabCount = 4;
+  const completed = new Set();
+
+  function showTab(i) {
+    document.querySelectorAll('.lesson-panel').forEach((p, idx) => {
+      p.classList.toggle('active', idx === i);
+    });
+    document.querySelectorAll('.tab-btn').forEach((b, idx) => {
+      b.classList.toggle('active', idx === i);
+    });
+    completed.add(i);
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateProgress() {
+    const pct = Math.round((completed.size / tabCount) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+  }
+
+  // ── HINTS ───────────────────────────────────────
+  function toggleHint(btn) {
+    const content = btn.nextElementSibling;
+    const showing = content.style.display === 'block';
+    content.style.display = showing ? 'none' : 'block';
+    btn.textContent = showing ? '💡 Show Hint' : '💡 Hide Hint';
+    if (!showing) {
+      btn.style.borderRadius = '8px 8px 0 0';
+    } else {
+      btn.style.borderRadius = '8px';
+    }
+  }
+
+  // ── QUIZ ────────────────────────────────────────
+  let quizScore = 0;
+  let quizAnswered = {};
+  const totalQ = 5;
+
+  function answer(btn, correct, qid) {
+    if (quizAnswered[qid]) return;
+    quizAnswered[qid] = true;
+
+    const block = btn.closest('.quiz-question-block');
+    block.querySelectorAll('.q-option').forEach(b => b.disabled = true);
+
+    if (correct) {
+      btn.classList.add('correct');
+      document.getElementById('fb-' + qid).innerHTML = '<span style="color:#15803d">✅ Correct!</span>';
+      quizScore++;
+    } else {
+      btn.classList.add('wrong');
+      // Highlight the correct answer
+      block.querySelectorAll('.q-option').forEach(b => {
+        if (b.onclick.toString().includes('true')) b.classList.add('correct');
+      });
+      document.getElementById('fb-' + qid).innerHTML = '<span style="color:#dc2626">❌ Not quite — the correct answer is highlighted in green.</span>';
+    }
+
+    if (Object.keys(quizAnswered).length === totalQ) showResults();
+  }
+
+  function showResults() {
+    const pct = Math.round((quizScore / totalQ) * 100);
+    let emoji = '🏆', title = 'Outstanding!', msg = '';
+    if (pct >= 80) { emoji = '🏆'; title = 'Excellent work!'; }
+    else if (pct >= 60) { emoji = '⭐'; title = 'Good effort!'; }
+    else { emoji = '💪'; title = 'Keep practicing!'; }
+    msg = `You scored ${quizScore} out of ${totalQ} (${pct}%). ${pct >= 80 ? 'You've mastered this topic!' : 'Review the lessons above and try again.'}`;
+
+    document.getElementById('result-emoji').textContent = emoji;
+    document.getElementById('result-title').textContent = title;
+    document.getElementById('result-msg').textContent = msg;
+    document.getElementById('quiz-result').style.display = 'block';
+
+    // Save to localStorage
+    const prev = JSON.parse(localStorage.getItem('completed') || '[]');
+    if (!prev.includes('Algebra Lessons') && pct >= 60) {
+      prev.push('Algebra Lessons');
+      localStorage.setItem('completed', JSON.stringify(prev));
+    }
+  }
+
+  function retryQuiz() {
+    quizScore = 0;
+    quizAnswered = {};
+    document.querySelectorAll('.q-option').forEach(b => {
+      b.disabled = false;
+      b.classList.remove('correct', 'wrong');
+    });
+    document.querySelectorAll('.q-feedback').forEach(f => f.innerHTML = '');
+    document.getElementById('quiz-result').style.display = 'none';
+  }
+
+  function finishLesson() {
+    const prev = JSON.parse(localStorage.getItem('completed') || '[]');
+    if (!prev.includes('Algebra Lessons')) {
+      prev.push('Algebra Lessons');
+      localStorage.setItem('completed', JSON.stringify(prev));
+    }
+    alert('🎉 Algebra lesson marked as complete! Great work.');
+    window.location.href = 'index.html#resources';
+  }
+
+  // Mark first tab as visited on load
+  completed.add(0);
+  updateProgress();
+</script>
+
+</body>
+</html>

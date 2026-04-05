@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SolveSpace – Statistics Lessons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lesson.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">SolveSpace</a>
+  <a href="index.html#resources" class="nav-back">← Back to Resources</a>
+</nav>
+
+<div class="lesson-hero" style="background: linear-gradient(120deg, #0f766e, #2dd4bf);">
+  <span class="subject-badge">📊 Statistics</span>
+  <h1>Data, Mean, Median &amp; Probability</h1>
+  <p>Learn to analyze data sets, find measures of center, and calculate the likelihood of events.</p>
+  <div class="lesson-progress-bar">
+    <div class="lesson-progress-fill" id="progress-fill"></div>
+  </div>
+</div>
+
+<main>
+  <a href="index.html#resources" class="back-link">← Resources</a>
+
+  <div class="lesson-tabs">
+    <button class="tab-btn active" onclick="showTab(0)" id="tab-0">📖 <span>Mean &amp; Median</span></button>
+    <button class="tab-btn" onclick="showTab(1)" id="tab-1">📖 <span>Mode &amp; Range</span></button>
+    <button class="tab-btn" onclick="showTab(2)" id="tab-2">📖 <span>Probability</span></button>
+    <button class="tab-btn" onclick="showTab(3)" id="tab-3">🧠 <span>Practice</span></button>
+  </div>
+
+  <!-- PANEL 0: Mean & Median -->
+  <div class="lesson-panel active" id="panel-0">
+    <h2>📊 Mean &amp; Median</h2>
+    <p>When working with data, we often want one number that represents the "center" of the data. The two most common measures are the <strong>mean</strong> and the <strong>median</strong>.</p>
+
+    <div class="concept-box">
+      <div class="concept-label">Key Concept</div>
+      <p>Mean = average (sum ÷ count). Median = middle value when data is sorted. Use median when there are extreme outliers that would skew the mean.</p>
+    </div>
+
+    <h3>Calculating the Mean</h3>
+    <p>Add all the values together, then divide by how many values there are.</p>
+    <div class="formula"><span class="hi">Mean</span> = (sum of all values) <span class="op">÷</span> (number of values)</div>
+
+    <h3>Finding the Median</h3>
+    <ul>
+      <li>Sort the data from smallest to largest</li>
+      <li>If there's an <strong>odd</strong> number of values, the median is the middle one</li>
+      <li>If there's an <strong>even</strong> number of values, average the two middle numbers</li>
+    </ul>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example — Mean</div>
+      <div class="example-body">
+        <div class="example-problem">Find the mean: &nbsp; 4, 8, 6, 10, 7, 3, 6</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Add all seven numbers together, then divide by 7.</div>
+        <ol class="steps">
+          <li>Count the values: there are 7 numbers</li>
+          <li>Add them: 4 + 8 + 6 + 10 + 7 + 3 + 6 = 44</li>
+          <li>Divide by count: 44 ÷ 7 ≈ 6.29</li>
+        </ol>
+        <div class="formula">Sum = 4+8+6+10+7+3+6 = <span class="op">44</span>
+Mean = 44 <span class="op">÷</span> 7 = <span class="ans">6.29</span></div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example — Median (Even Count)</div>
+      <div class="example-body">
+        <div class="example-problem">Find the median: &nbsp; 12, 5, 9, 3, 7, 14</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Sort first! Then with 6 values (even), average the 3rd and 4th values.</div>
+        <ol class="steps">
+          <li>Sort ascending: 3, 5, 7, 9, 12, 14</li>
+          <li>6 values (even) → average the 3rd and 4th: 7 and 9</li>
+          <li>Median = (7 + 9) ÷ 2 = 16 ÷ 2 = 8</li>
+        </ol>
+        <div class="formula">Sorted: 3, 5, <span class="hi">7, 9</span>, 12, 14
+Median = (7 + 9) <span class="op">÷</span> 2 = <span class="ans">8</span></div>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <span></span>
+      <button class="btn-nav btn-next" onclick="showTab(1)">Next: Mode &amp; Range →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 1: Mode & Range -->
+  <div class="lesson-panel" id="panel-1">
+    <h2>📈 Mode &amp; Range</h2>
+    <p>Two more tools for describing data: the <strong>mode</strong> tells you what value appears most often, and the <strong>range</strong> tells you how spread out the data is.</p>
+
+    <div class="concept-box">
+      <div class="concept-label">Key Concept</div>
+      <p>Mode = most frequent value (a data set can have no mode, one mode, or multiple modes). Range = largest value − smallest value.</p>
+    </div>
+
+    <h3>Quick Tips</h3>
+    <ul>
+      <li>A data set is <strong>unimodal</strong> if it has one mode</li>
+      <li>A data set is <strong>bimodal</strong> if it has two modes</li>
+      <li>If no value repeats, there is <strong>no mode</strong></li>
+      <li>Range measures <strong>spread</strong>, not center — a large range means data is widely scattered</li>
+    </ul>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example — Mode &amp; Range</div>
+      <div class="example-body">
+        <div class="example-problem">Find the mode and range: &nbsp; 5, 3, 8, 3, 9, 5, 3, 7</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Tally how many times each number appears. For range, subtract the smallest from the largest.</div>
+        <ol class="steps">
+          <li>Tally: 3 appears 3 times, 5 appears 2 times, others once</li>
+          <li>Mode = 3 (appears most — 3 times)</li>
+          <li>Range = largest − smallest = 9 − 3 = 6</li>
+        </ol>
+        <div class="formula">Tally: 3→3×, 5→2×, 7→1×, 8→1×, 9→1×
+Mode  = <span class="ans">3</span>
+Range = 9 <span class="op">−</span> 3 = <span class="ans">6</span></div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example — All Four Measures</div>
+      <div class="example-body">
+        <div class="example-problem">Data set: 2, 6, 4, 6, 8, 4, 6, 10. Find mean, median, mode, and range.</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Sort first: 2, 4, 4, 6, 6, 6, 8, 10. Then apply each formula.</div>
+        <ol class="steps">
+          <li>Sorted: 2, 4, 4, 6, 6, 6, 8, 10</li>
+          <li>Mean: (2+4+4+6+6+6+8+10) ÷ 8 = 46 ÷ 8 = 5.75</li>
+          <li>Median: (6+6) ÷ 2 = 6 (middle two values)</li>
+          <li>Mode: 6 (appears 3 times)</li>
+          <li>Range: 10 − 2 = 8</li>
+        </ol>
+        <div class="formula">Mean   = 46 <span class="op">÷</span> 8 = <span class="ans">5.75</span>
+Median = (6+6) ÷ 2 = <span class="ans">6</span>
+Mode   = <span class="ans">6</span>
+Range  = 10 <span class="op">−</span> 2 = <span class="ans">8</span></div>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(0)">← Mean &amp; Median</button>
+      <button class="btn-nav btn-next" onclick="showTab(2)">Next: Probability →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 2: Probability -->
+  <div class="lesson-panel" id="panel-2">
+    <h2>🎲 Probability</h2>
+    <p>Probability measures how likely an event is to occur. It is always a number between 0 (impossible) and 1 (certain), or expressed as a percentage between 0% and 100%.</p>
+
+    <div class="concept-box">
+      <div class="concept-label">Key Formula</div>
+      <p>P(event) = Number of favorable outcomes ÷ Total number of possible outcomes</p>
+    </div>
+
+    <h3>Types of Events</h3>
+    <ul>
+      <li><strong>Simple event:</strong> one outcome (e.g. rolling a 4)</li>
+      <li><strong>Compound event:</strong> two or more outcomes (e.g. rolling a 4 OR a 5)</li>
+      <li><strong>Complementary event:</strong> P(not A) = 1 − P(A)</li>
+    </ul>
+
+    <h3>Probability Scale</h3>
+    <div class="formula">0 ──────────── 0.5 ──────────── 1
+<span class="hi">Impossible</span>   <span class="op">50/50</span>    <span class="ans">Certain</span></div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 1 — Simple Probability</div>
+      <div class="example-body">
+        <div class="example-problem">A bag has 3 red, 4 blue, and 5 green marbles. What is the probability of picking a blue marble?</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Total outcomes = 3+4+5 = 12. Favorable outcomes = 4 (blue marbles).</div>
+        <ol class="steps">
+          <li>Total marbles: 3 + 4 + 5 = 12</li>
+          <li>Favorable outcomes (blue): 4</li>
+          <li>P(blue) = 4/12 = 1/3 ≈ 0.333 = 33.3%</li>
+        </ol>
+        <div class="formula">P(blue) = <span class="hi">4</span> <span class="op">÷</span> <span class="hi">12</span> = <span class="ans">1/3 ≈ 33.3%</span></div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 2 — Complementary Events</div>
+      <div class="example-body">
+        <div class="example-problem">The probability of rain tomorrow is 0.35. What is the probability it will NOT rain?</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">P(not A) = 1 − P(A). The two complementary events must add to 1 (100%).</div>
+        <ol class="steps">
+          <li>P(rain) = 0.35</li>
+          <li>P(not rain) = 1 − 0.35 = 0.65</li>
+          <li>There is a 65% chance it will not rain.</li>
+        </ol>
+        <div class="formula">P(not rain) = 1 <span class="op">−</span> 0.35 = <span class="ans">0.65 (65%)</span></div>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(1)">← Mode &amp; Range</button>
+      <button class="btn-nav btn-next" onclick="showTab(3)">Take the Quiz →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 3: Quiz -->
+  <div class="lesson-panel" id="panel-3">
+    <h2>📝 Statistics Quiz</h2>
+    <p style="margin-bottom:1.5rem">Five questions covering mean, median, mode, range, and probability.</p>
+
+    <div id="quiz-container">
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 1 of 5</div>
+        <div class="q-text">Find the mean of: 4, 7, 2, 9, 3</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q1')">4</button>
+          <button class="q-option" onclick="answer(this, true,  'q1')">5</button>
+          <button class="q-option" onclick="answer(this, false, 'q1')">7</button>
+          <button class="q-option" onclick="answer(this, false, 'q1')">3</button>
+        </div>
+        <div class="q-feedback" id="fb-q1"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 2 of 5</div>
+        <div class="q-text">Find the median of: 11, 3, 7, 5, 9</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q2')">5</button>
+          <button class="q-option" onclick="answer(this, false, 'q2')">9</button>
+          <button class="q-option" onclick="answer(this, true,  'q2')">7</button>
+          <button class="q-option" onclick="answer(this, false, 'q2')">11</button>
+        </div>
+        <div class="q-feedback" id="fb-q2"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 3 of 5</div>
+        <div class="q-text">What is the mode of: 6, 2, 4, 6, 8, 2, 6?</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q3')">2</button>
+          <button class="q-option" onclick="answer(this, true,  'q3')">6</button>
+          <button class="q-option" onclick="answer(this, false, 'q3')">4</button>
+          <button class="q-option" onclick="answer(this, false, 'q3')">8</button>
+        </div>
+        <div class="q-feedback" id="fb-q3"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 4 of 5</div>
+        <div class="q-text">What is the range of: 15, 3, 22, 8, 17?</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q4')">14</button>
+          <button class="q-option" onclick="answer(this, false, 'q4')">17</button>
+          <button class="q-option" onclick="answer(this, true,  'q4')">19</button>
+          <button class="q-option" onclick="answer(this, false, 'q4')">22</button>
+        </div>
+        <div class="q-feedback" id="fb-q4"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 5 of 5</div>
+        <div class="q-text">A spinner has 8 equal sections: 3 red, 2 blue, 3 yellow. What is P(blue)?</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q5')">3/8</button>
+          <button class="q-option" onclick="answer(this, false, 'q5')">1/3</button>
+          <button class="q-option" onclick="answer(this, true,  'q5')">1/4</button>
+          <button class="q-option" onclick="answer(this, false, 'q5')">2/3</button>
+        </div>
+        <div class="q-feedback" id="fb-q5"></div>
+      </div>
+
+    </div>
+
+    <div class="quiz-result-box" id="quiz-result">
+      <div class="result-emoji" id="result-emoji">🏆</div>
+      <h3 id="result-title">Quiz Complete!</h3>
+      <p id="result-msg"></p>
+      <button class="btn-retry" onclick="retryQuiz()">Try Again</button>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(2)">← Lesson 3</button>
+      <button class="btn-nav btn-finish" onclick="finishLesson()">✓ Complete Lesson</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>© 2026 SolveSpace · <a href="index.html">Home</a> · <a href="index.html#resources">All Resources</a></footer>
+
+<script>
+  const tabCount = 4;
+  const completed = new Set();
+
+  function showTab(i) {
+    document.querySelectorAll('.lesson-panel').forEach((p, idx) => p.classList.toggle('active', idx === i));
+    document.querySelectorAll('.tab-btn').forEach((b, idx) => b.classList.toggle('active', idx === i));
+    completed.add(i);
+    document.getElementById('progress-fill').style.width = Math.round((completed.size / tabCount) * 100) + '%';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleHint(btn) {
+    const content = btn.nextElementSibling;
+    const showing = content.style.display === 'block';
+    content.style.display = showing ? 'none' : 'block';
+    btn.textContent = showing ? '💡 Show Hint' : '💡 Hide Hint';
+    btn.style.borderRadius = showing ? '8px' : '8px 8px 0 0';
+  }
+
+  let quizScore = 0, quizAnswered = {};
+  const totalQ = 5;
+
+  function answer(btn, correct, qid) {
+    if (quizAnswered[qid]) return;
+    quizAnswered[qid] = true;
+    const block = btn.closest('.quiz-question-block');
+    block.querySelectorAll('.q-option').forEach(b => b.disabled = true);
+    if (correct) {
+      btn.classList.add('correct');
+      document.getElementById('fb-' + qid).innerHTML = '<span style="color:#15803d">✅ Correct!</span>';
+      quizScore++;
+    } else {
+      btn.classList.add('wrong');
+      block.querySelectorAll('.q-option').forEach(b => { if (b.onclick.toString().includes('true')) b.classList.add('correct'); });
+      document.getElementById('fb-' + qid).innerHTML = '<span style="color:#dc2626">❌ Not quite — correct answer highlighted in green.</span>';
+    }
+    if (Object.keys(quizAnswered).length === totalQ) {
+      const pct = Math.round((quizScore / totalQ) * 100);
+      document.getElementById('result-emoji').textContent = pct >= 80 ? '🏆' : pct >= 60 ? '⭐' : '💪';
+      document.getElementById('result-title').textContent = pct >= 80 ? 'Excellent work!' : pct >= 60 ? 'Good effort!' : 'Keep practicing!';
+      document.getElementById('result-msg').textContent = `You scored ${quizScore} out of ${totalQ} (${pct}%).`;
+      document.getElementById('quiz-result').style.display = 'block';
+      if (pct >= 60) { const p = JSON.parse(localStorage.getItem('completed') || '[]'); if (!p.includes('Statistics Lessons')) { p.push('Statistics Lessons'); localStorage.setItem('completed', JSON.stringify(p)); } }
+    }
+  }
+
+  function retryQuiz() {
+    quizScore = 0; quizAnswered = {};
+    document.querySelectorAll('.q-option').forEach(b => { b.disabled = false; b.classList.remove('correct','wrong'); });
+    document.querySelectorAll('.q-feedback').forEach(f => f.innerHTML = '');
+    document.getElementById('quiz-result').style.display = 'none';
+  }
+
+  function finishLesson() {
+    const p = JSON.parse(localStorage.getItem('completed') || '[]');
+    if (!p.includes('Statistics Lessons')) { p.push('Statistics Lessons'); localStorage.setItem('completed', JSON.stringify(p)); }
+    alert('🎉 Statistics lesson complete! Great work.');
+    window.location.href = 'index.html#resources';
+  }
+
+  completed.add(0);
+  document.getElementById('progress-fill').style.width = Math.round((1/tabCount)*100) + '%';
+</script>
+</body>
+</html>

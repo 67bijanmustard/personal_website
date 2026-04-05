@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SolveSpace – Geometry Lessons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lesson.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">SolveSpace</a>
+  <a href="index.html#resources" class="nav-back">← Back to Resources</a>
+</nav>
+
+<div class="lesson-hero" style="background: linear-gradient(120deg, #7c3aed, #a78bfa);">
+  <span class="subject-badge">📐 Geometry</span>
+  <h1>Shapes, Angles &amp; Proofs</h1>
+  <p>Explore the properties of shapes, angle relationships, and the logic behind geometric proofs.</p>
+  <div class="lesson-progress-bar">
+    <div class="lesson-progress-fill" id="progress-fill"></div>
+  </div>
+</div>
+
+<main>
+  <a href="index.html#resources" class="back-link">← Resources</a>
+
+  <div class="lesson-tabs">
+    <button class="tab-btn active" onclick="showTab(0)" id="tab-0">📖 <span>Angles</span></button>
+    <button class="tab-btn" onclick="showTab(1)" id="tab-1">📖 <span>Triangles</span></button>
+    <button class="tab-btn" onclick="showTab(2)" id="tab-2">📖 <span>Area &amp; Perimeter</span></button>
+    <button class="tab-btn" onclick="showTab(3)" id="tab-3">🧠 <span>Practice</span></button>
+  </div>
+
+  <!-- PANEL 0: Angles -->
+  <div class="lesson-panel active" id="panel-0">
+    <h2>📐 Angle Relationships</h2>
+    <p>Angles are formed when two rays share a common endpoint (called the vertex). Understanding how angles relate to each other is the foundation of geometry.</p>
+
+    <div class="concept-box">
+      <div class="concept-label">Key Concept</div>
+      <p>A straight line = 180°. A full rotation = 360°. These two facts power almost every angle problem.</p>
+    </div>
+
+    <h3>Types of Angles</h3>
+    <ul>
+      <li><strong>Acute:</strong> less than 90°</li>
+      <li><strong>Right:</strong> exactly 90° (marked with a square symbol)</li>
+      <li><strong>Obtuse:</strong> between 90° and 180°</li>
+      <li><strong>Straight:</strong> exactly 180°</li>
+      <li><strong>Reflex:</strong> between 180° and 360°</li>
+    </ul>
+
+    <h3>Angle Pair Relationships</h3>
+    <ul>
+      <li><strong>Complementary:</strong> two angles that add to 90°</li>
+      <li><strong>Supplementary:</strong> two angles that add to 180°</li>
+      <li><strong>Vertical angles:</strong> opposite angles formed by two intersecting lines — always equal</li>
+      <li><strong>Linear pair:</strong> adjacent angles on a straight line — always supplementary</li>
+    </ul>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example — Supplementary Angles</div>
+      <div class="example-body">
+        <div class="example-problem">Two angles are supplementary. One angle measures 65°. Find the other.</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Supplementary angles add up to 180°. Subtract the known angle from 180°.</div>
+        <ol class="steps">
+          <li>Supplementary means they sum to 180°</li>
+          <li>Set up the equation: &nbsp; 65° + x = 180°</li>
+          <li>Subtract 65° from both sides: &nbsp; x = 180° − 65°</li>
+          <li>x = 115°</li>
+        </ol>
+        <div class="formula">65° + <span class="hi">x</span> = 180°
+x = 180° <span class="op">− 65°</span>
+x = <span class="ans">115°</span></div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example — Vertical Angles</div>
+      <div class="example-body">
+        <div class="example-problem">Two lines intersect. One angle is (3x + 10)°. Its vertical angle is (5x − 20)°. Find x.</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Vertical angles are equal. Set the two expressions equal to each other and solve.</div>
+        <ol class="steps">
+          <li>Vertical angles are equal: &nbsp; 3x + 10 = 5x − 20</li>
+          <li>Subtract 3x from both sides: &nbsp; 10 = 2x − 20</li>
+          <li>Add 20 to both sides: &nbsp; 30 = 2x</li>
+          <li>Divide by 2: &nbsp; x = 15</li>
+          <li>Check: 3(15)+10 = 55°, 5(15)−20 = 55° ✅</li>
+        </ol>
+        <div class="formula"><span class="hi">3x + 10</span> = <span class="hi">5x − 20</span>
+30 = 2x
+x = <span class="ans">15</span></div>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <span></span>
+      <button class="btn-nav btn-next" onclick="showTab(1)">Next: Triangles →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 1: Triangles -->
+  <div class="lesson-panel" id="panel-1">
+    <h2>🔺 Triangles</h2>
+    <p>Triangles are the most fundamental polygon. Their properties appear in architecture, art, engineering, and of course — math exams.</p>
+
+    <div class="concept-box">
+      <div class="concept-label">Key Concept</div>
+      <p>The three interior angles of any triangle always add up to exactly 180°. This is called the Triangle Angle Sum Theorem.</p>
+    </div>
+
+    <h3>Types of Triangles</h3>
+    <p><strong>By sides:</strong></p>
+    <ul>
+      <li><strong>Equilateral:</strong> all 3 sides equal, all angles = 60°</li>
+      <li><strong>Isosceles:</strong> 2 sides equal, base angles are equal</li>
+      <li><strong>Scalene:</strong> all sides different, all angles different</li>
+    </ul>
+    <p><strong>By angles:</strong></p>
+    <ul>
+      <li><strong>Acute:</strong> all angles less than 90°</li>
+      <li><strong>Right:</strong> one angle exactly 90° (use Pythagorean theorem!)</li>
+      <li><strong>Obtuse:</strong> one angle greater than 90°</li>
+    </ul>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 1 — Missing Angle</div>
+      <div class="example-body">
+        <div class="example-problem">A triangle has angles of 47° and 83°. Find the third angle.</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">All three angles must add up to 180°. Add the two known angles, then subtract from 180°.</div>
+        <ol class="steps">
+          <li>Angles sum to 180°: &nbsp; 47° + 83° + x = 180°</li>
+          <li>Add known angles: &nbsp; 130° + x = 180°</li>
+          <li>Subtract: &nbsp; x = 50°</li>
+        </ol>
+        <div class="formula">47° + 83° + <span class="hi">x</span> = 180°
+130° + x = 180°
+x = <span class="ans">50°</span></div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 2 — Pythagorean Theorem</div>
+      <div class="example-body">
+        <div class="example-problem">A right triangle has legs of 6 and 8. Find the hypotenuse.</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Use a² + b² = c² where c is the hypotenuse (the side opposite the right angle).</div>
+        <ol class="steps">
+          <li>Write the formula: &nbsp; a² + b² = c²</li>
+          <li>Substitute: &nbsp; 6² + 8² = c²</li>
+          <li>Calculate: &nbsp; 36 + 64 = c²</li>
+          <li>100 = c² &nbsp;→&nbsp; c = √100 = 10</li>
+        </ol>
+        <div class="formula">a² + b² = c²
+6² + 8² = c²
+36 + 64 = c²
+c² = 100
+c = <span class="ans">10</span></div>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(0)">← Angles</button>
+      <button class="btn-nav btn-next" onclick="showTab(2)">Next: Area &amp; Perimeter →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 2: Area & Perimeter -->
+  <div class="lesson-panel" id="panel-2">
+    <h2>📏 Area &amp; Perimeter</h2>
+    <p><strong>Perimeter</strong> is the distance around the outside of a shape. <strong>Area</strong> is the amount of space inside it. Always check your units — perimeter uses units (cm), area uses square units (cm²).</p>
+
+    <div class="concept-box">
+      <div class="concept-label">Key Formulas</div>
+      <p>Rectangle: P = 2(l + w), A = l × w &nbsp;|&nbsp; Triangle: A = ½ × b × h &nbsp;|&nbsp; Circle: C = 2πr, A = πr²</p>
+    </div>
+
+    <h3>Common Formulas</h3>
+    <div class="formula"><span class="hi">Rectangle</span>
+  Perimeter = <span class="op">2(length + width)</span>
+  Area      = <span class="op">length × width</span>
+
+<span class="hi">Triangle</span>
+  Area = <span class="op">½ × base × height</span>
+
+<span class="hi">Circle</span>
+  Circumference = <span class="op">2 × π × radius</span>
+  Area          = <span class="op">π × radius²</span></div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 1 — Rectangle</div>
+      <div class="example-body">
+        <div class="example-problem">A rectangle is 12 cm long and 5 cm wide. Find its perimeter and area.</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Use P = 2(l + w) for perimeter and A = l × w for area.</div>
+        <ol class="steps">
+          <li>Perimeter: &nbsp; P = 2(12 + 5) = 2(17) = 34 cm</li>
+          <li>Area: &nbsp; A = 12 × 5 = 60 cm²</li>
+        </ol>
+        <div class="formula">P = 2(12 + 5) = 2(17) = <span class="ans">34 cm</span>
+A = 12 × 5 = <span class="ans">60 cm²</span></div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 2 — Circle</div>
+      <div class="example-body">
+        <div class="example-problem">A circle has a radius of 7 cm. Find its circumference and area. (Use π ≈ 3.14)</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">C = 2πr and A = πr². Substitute r = 7 and π = 3.14.</div>
+        <ol class="steps">
+          <li>Circumference: &nbsp; C = 2 × 3.14 × 7 = 43.96 cm</li>
+          <li>Area: &nbsp; A = 3.14 × 7² = 3.14 × 49 = 153.86 cm²</li>
+        </ol>
+        <div class="formula">C = 2 × 3.14 × 7 = <span class="ans">43.96 cm</span>
+A = 3.14 × 49 = <span class="ans">153.86 cm²</span></div>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(1)">← Triangles</button>
+      <button class="btn-nav btn-next" onclick="showTab(3)">Take the Quiz →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 3: Quiz -->
+  <div class="lesson-panel" id="panel-3">
+    <h2>📝 Geometry Quiz</h2>
+    <p style="margin-bottom:1.5rem">Five questions covering angles, triangles, and area/perimeter.</p>
+
+    <div id="quiz-container">
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 1 of 5</div>
+        <div class="q-text">Two angles are supplementary. One is 112°. What is the other?</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q1')">78°</button>
+          <button class="q-option" onclick="answer(this, true,  'q1')">68°</button>
+          <button class="q-option" onclick="answer(this, false, 'q1')">58°</button>
+          <button class="q-option" onclick="answer(this, false, 'q1')">48°</button>
+        </div>
+        <div class="q-feedback" id="fb-q1"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 2 of 5</div>
+        <div class="q-text">A triangle has angles of 55° and 75°. What is the third angle?</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q2')">60°</button>
+          <button class="q-option" onclick="answer(this, true,  'q2')">50°</button>
+          <button class="q-option" onclick="answer(this, false, 'q2')">45°</button>
+          <button class="q-option" onclick="answer(this, false, 'q2')">40°</button>
+        </div>
+        <div class="q-feedback" id="fb-q2"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 3 of 5</div>
+        <div class="q-text">A right triangle has legs of 5 and 12. What is the hypotenuse?</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q3')">11</button>
+          <button class="q-option" onclick="answer(this, false, 'q3')">14</button>
+          <button class="q-option" onclick="answer(this, true,  'q3')">13</button>
+          <button class="q-option" onclick="answer(this, false, 'q3')">17</button>
+        </div>
+        <div class="q-feedback" id="fb-q3"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 4 of 5</div>
+        <div class="q-text">What is the area of a triangle with base 10 and height 6?</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q4')">60</button>
+          <button class="q-option" onclick="answer(this, true,  'q4')">30</button>
+          <button class="q-option" onclick="answer(this, false, 'q4')">16</button>
+          <button class="q-option" onclick="answer(this, false, 'q4')">20</button>
+        </div>
+        <div class="q-feedback" id="fb-q4"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 5 of 5</div>
+        <div class="q-text">A rectangle is 9 cm by 4 cm. What is its perimeter?</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q5')">36 cm</button>
+          <button class="q-option" onclick="answer(this, true,  'q5')">26 cm</button>
+          <button class="q-option" onclick="answer(this, false, 'q5')">13 cm</button>
+          <button class="q-option" onclick="answer(this, false, 'q5')">18 cm</button>
+        </div>
+        <div class="q-feedback" id="fb-q5"></div>
+      </div>
+
+    </div>
+
+    <div class="quiz-result-box" id="quiz-result">
+      <div class="result-emoji" id="result-emoji">🏆</div>
+      <h3 id="result-title">Quiz Complete!</h3>
+      <p id="result-msg"></p>
+      <button class="btn-retry" onclick="retryQuiz()">Try Again</button>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(2)">← Lesson 3</button>
+      <button class="btn-nav btn-finish" onclick="finishLesson()">✓ Complete Lesson</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>© 2026 SolveSpace · <a href="index.html">Home</a> · <a href="index.html#resources">All Resources</a></footer>
+
+<script>
+  const tabCount = 4;
+  const completed = new Set();
+
+  function showTab(i) {
+    document.querySelectorAll('.lesson-panel').forEach((p, idx) => p.classList.toggle('active', idx === i));
+    document.querySelectorAll('.tab-btn').forEach((b, idx) => b.classList.toggle('active', idx === i));
+    completed.add(i);
+    document.getElementById('progress-fill').style.width = Math.round((completed.size / tabCount) * 100) + '%';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleHint(btn) {
+    const content = btn.nextElementSibling;
+    const showing = content.style.display === 'block';
+    content.style.display = showing ? 'none' : 'block';
+    btn.textContent = showing ? '💡 Show Hint' : '💡 Hide Hint';
+    btn.style.borderRadius = showing ? '8px' : '8px 8px 0 0';
+  }
+
+  let quizScore = 0, quizAnswered = {};
+  const totalQ = 5;
+
+  function answer(btn, correct, qid) {
+    if (quizAnswered[qid]) return;
+    quizAnswered[qid] = true;
+    const block = btn.closest('.quiz-question-block');
+    block.querySelectorAll('.q-option').forEach(b => b.disabled = true);
+    if (correct) {
+      btn.classList.add('correct');
+      document.getElementById('fb-' + qid).innerHTML = '<span style="color:#15803d">✅ Correct!</span>';
+      quizScore++;
+    } else {
+      btn.classList.add('wrong');
+      block.querySelectorAll('.q-option').forEach(b => { if (b.onclick.toString().includes('true')) b.classList.add('correct'); });
+      document.getElementById('fb-' + qid).innerHTML = '<span style="color:#dc2626">❌ Not quite — correct answer highlighted in green.</span>';
+    }
+    if (Object.keys(quizAnswered).length === totalQ) {
+      const pct = Math.round((quizScore / totalQ) * 100);
+      document.getElementById('result-emoji').textContent = pct >= 80 ? '🏆' : pct >= 60 ? '⭐' : '💪';
+      document.getElementById('result-title').textContent = pct >= 80 ? 'Excellent work!' : pct >= 60 ? 'Good effort!' : 'Keep practicing!';
+      document.getElementById('result-msg').textContent = `You scored ${quizScore} out of ${totalQ} (${pct}%).`;
+      document.getElementById('quiz-result').style.display = 'block';
+      if (pct >= 60) { const p = JSON.parse(localStorage.getItem('completed') || '[]'); if (!p.includes('Geometry Lessons')) { p.push('Geometry Lessons'); localStorage.setItem('completed', JSON.stringify(p)); } }
+    }
+  }
+
+  function retryQuiz() {
+    quizScore = 0; quizAnswered = {};
+    document.querySelectorAll('.q-option').forEach(b => { b.disabled = false; b.classList.remove('correct','wrong'); });
+    document.querySelectorAll('.q-feedback').forEach(f => f.innerHTML = '');
+    document.getElementById('quiz-result').style.display = 'none';
+  }
+
+  function finishLesson() {
+    const p = JSON.parse(localStorage.getItem('completed') || '[]');
+    if (!p.includes('Geometry Lessons')) { p.push('Geometry Lessons'); localStorage.setItem('completed', JSON.stringify(p)); }
+    alert('🎉 Geometry lesson complete! Great work.');
+    window.location.href = 'index.html#resources';
+  }
+
+  completed.add(0);
+  document.getElementById('progress-fill').style.width = Math.round((1/tabCount)*100) + '%';
+</script>
+</body>
+</html>
