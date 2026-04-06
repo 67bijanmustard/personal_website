@@ -25,7 +25,6 @@
       <li><a href="login.html" class="nav-btn">Sign In</a></li>
       <li><button id="theme-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button></li>
     </ul>
-    <!-- Hamburger for mobile -->
     <button class="hamburger" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
   </nav>
 
@@ -73,7 +72,6 @@
         </div>
       </div>
       <div class="about-image">
-        <!-- FIX: use a local image if you have one; this is a reliable placeholder -->
         <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=700&q=80" alt="Students learning math together" loading="lazy">
       </div>
     </div>
@@ -106,6 +104,13 @@
           <div id="progress-fill" class="progress-fill" style="width: 0%;"></div>
         </div>
         <p id="progress-text">0% of course completed</p>
+        <button
+          onclick="resetProgress()"
+          style="margin-top:14px; background:none; border:1px solid #ccc; color:#888; border-radius:6px; padding:5px 12px; font-size:0.75rem; cursor:pointer; font-family:inherit; transition: all 0.2s;"
+          onmouseover="this.style.borderColor='#ef4444';this.style.color='#ef4444';"
+          onmouseout="this.style.borderColor='#ccc';this.style.color='#888';">
+          ↺ Reset Progress
+        </button>
       </div>
       <div class="dashboard-card">
         <h3>✅ Completed Activities</h3>
@@ -122,107 +127,32 @@
   </section>
 
   <!-- Resources -->
-  <!-- FIX #1: All resource cards are now INSIDE this section, inside .resources-grid -->
   <section id="resources" class="page reveal resources-section">
     <h1>Learning Resources</h1>
     <input type="text" id="resourceSearch" onkeyup="filterResources()" placeholder="Search lessons (e.g. Algebra)...">
 
     <div class="resources-grid">
 
-      <!-- Algebra Lesson Card -->
       <div class="resource-card">
         <h3>📘 Algebra Lessons</h3>
-        <p>Equations, inequalities, and multi-step problems with worked examples and hints.</p>
+        <p>Equations, inequalities, and multi-step problems — with worked examples, quizzes, videos, and worksheets.</p>
         <a href="lesson-algebra.html" class="lesson-link-btn">Start Lesson</a>
       </div>
 
-      <!-- Geometry Lesson Card -->
       <div class="resource-card">
         <h3>📐 Geometry Lessons</h3>
-        <p>Angles, triangles, the Pythagorean theorem, area and perimeter.</p>
+        <p>Angles, triangles, the Pythagorean theorem, area and perimeter — with worked examples, quizzes, videos, and worksheets.</p>
         <a href="lesson-geometry.html" class="lesson-link-btn">Start Lesson</a>
       </div>
 
-      <!-- Statistics Lesson Card -->
       <div class="resource-card">
         <h3>📊 Statistics Lessons</h3>
-        <p>Mean, median, mode, range, and probability with real data examples.</p>
+        <p>Mean, median, mode, range, and probability — with worked examples, quizzes, videos, and worksheets.</p>
         <a href="lesson-statistics.html" class="lesson-link-btn">Start Lesson</a>
       </div>
 
-      <!-- Video Card -->
-      <div class="resource-card">
-        <h3>🎥 Video Tutorials</h3>
-        <p>Short videos explaining key math topics with examples.</p>
-        <button onclick="openVideo()">Watch Videos</button>
-      </div>
-
-      <!-- Quiz Card -->
-      <div class="resource-card">
-        <h3>📝 Practice Quiz</h3>
-        <p>Test your understanding with quick interactive questions.</p>
-        <button onclick="showQuiz()">Take Quiz</button>
-      </div>
-
-      <!-- Worksheet Card -->
-      <div class="resource-card">
-        <h3>📄 Worksheets</h3>
-        <p>Download practice problems and guided notes.</p>
-        <button onclick="downloadWorksheet()">Download PDF</button>
-      </div>
-
-    </div><!-- end .resources-grid -->
-
-    <!-- Modals stay inside the section but outside the grid -->
-
-    <!-- Lesson Modal -->
-    <div id="lesson-box" class="quiz-box" style="display:none;">
-      <h3 id="lesson-title"></h3>
-      <p id="lesson-content"></p>
-      <div style="display:flex; justify-content: space-between; margin-top: 10px;">
-        <button onclick="prevLesson()">⬅ Prev</button>
-        <button onclick="nextLesson()">Next ➡</button>
-      </div>
-      <button onclick="closeLesson()" style="margin-top:12px;">Close</button>
     </div>
-
-    <!-- Video Modal -->
-    <div id="video-box" class="quiz-box" style="display:none;">
-      <h3>Video Tutorials</h3>
-      <select onchange="loadVideo(this.value)">
-        <option value="Ft2_QtXAnh8">Linear Equations</option>
-        <option value="SaImpSmMb9Q">Distributive Property</option>
-        <option value="MHeirBPOI6w">Combining Like Terms</option>
-      </select>
-      <iframe id="video-frame" width="100%" height="250"
-        src="https://www.youtube.com/embed/7mZ3zG8h2mk"
-        frameborder="0" allowfullscreen
-        loading="lazy"
-        referrerpolicy="strict-origin-when-cross-origin">
-      </iframe>
-      <button onclick="closeVideo()">Close</button>
-    </div>
-
-    <!-- Quiz Modal -->
-    <div id="quiz-box" class="quiz-box" style="display:none;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-        <h3 id="quiz-question" style="margin:0; flex:1;"></h3>
-        <span id="quiz-score-display" style="font-size:0.75rem; color:rgba(255,255,255,0.6); margin-left:10px; flex-shrink:0;"></span>
-      </div>
-      <div class="quiz-options">
-        <button></button>
-        <button></button>
-        <button></button>
-        <button></button>
-      </div>
-      <p id="quiz-result"></p>
-      <div style="display:flex; justify-content: space-between;">
-        <button onclick="nextQuestion()">Next →</button>
-        <button onclick="closeQuiz()">Close</button>
-      </div>
-    </div>
-
-  </section><!-- end #resources -->
+  </section>
 
   <!-- Meet the Team -->
   <section id="team" class="page reveal team-section">
@@ -242,7 +172,7 @@
     </div>
   </section>
 
-  <!-- Footer with Copyright & Credits -->
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-brand">

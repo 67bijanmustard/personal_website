@@ -34,6 +34,8 @@
     <button class="tab-btn" onclick="showTab(1)" id="tab-1">📖 <span>Lesson 2</span></button>
     <button class="tab-btn" onclick="showTab(2)" id="tab-2">📖 <span>Lesson 3</span></button>
     <button class="tab-btn" onclick="showTab(3)" id="tab-3">🧠 <span>Practice</span></button>
+    <button class="tab-btn" onclick="showTab(4)" id="tab-4">🎥 <span>Videos</span></button>
+    <button class="tab-btn" onclick="showTab(5)" id="tab-5">📄 <span>Worksheets</span></button>
   </div>
 
   <!-- PANEL 0: Solving One-Step Equations -->
@@ -297,6 +299,100 @@ Graph: ●────────&gt; (closed circle at −4)</div>
 
     <div class="panel-nav">
       <button class="btn-nav btn-prev" onclick="showTab(2)">← Lesson 3</button>
+      <button class="btn-nav btn-next" onclick="showTab(4)">Videos →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 4: Videos -->
+  <div class="lesson-panel" id="panel-4">
+    <h2>🎥 Algebra Video Tutorials</h2>
+    <p style="margin-bottom:1.5rem">Select a topic to watch a clear video explanation.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1.5rem;">
+      <button class="vid-btn active-vid" onclick="loadVid(this,'Ft2_QtXAnh8','Linear Equations')">Linear Equations</button>
+      <button class="vid-btn" onclick="loadVid(this,'SaImpSmMb9Q','Distributive Property')">Distributive Property</button>
+      <button class="vid-btn" onclick="loadVid(this,'MHeirBPOI6w','Combining Like Terms')">Combining Like Terms</button>
+      <button class="vid-btn" onclick="loadVid(this,'NybHckSEQBI','Two-Step Equations')">Two-Step Equations</button>
+      <button class="vid-btn" onclick="loadVid(this,'qxHCyGfOCaA','Variables on Both Sides')">Variables on Both Sides</button>
+      <button class="vid-btn" onclick="loadVid(this,'bHbMNQSxhq8','Solving Inequalities')">Solving Inequalities</button>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header" id="vid-title">▶ Linear Equations</div>
+      <div class="example-body" style="padding:0.75rem;">
+        <iframe id="lesson-video" width="100%" height="340"
+          src="https://www.youtube.com/embed/Ft2_QtXAnh8"
+          frameborder="0" allowfullscreen loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          style="border-radius:8px; display:block;">
+        </iframe>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(3)">← Quiz</button>
+      <button class="btn-nav btn-next" onclick="showTab(5)">Worksheets →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 5: Worksheets -->
+  <div class="lesson-panel" id="panel-5">
+    <h2>📄 Algebra Worksheets</h2>
+    <p style="margin-bottom:1.5rem">Practice problems for every topic covered in this lesson.</p>
+
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="example-card">
+        <div class="example-header">📝 Worksheet 1 — One-Step Equations</div>
+        <div class="example-body" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <p style="margin:0 0 4px; font-weight:600;">Addition, subtraction, multiplication &amp; division</p>
+            <p style="margin:0; font-size:0.82rem; color:#6b7280;">20 problems, instant feedback</p>
+          </div>
+          <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:solve-equations-inequalities/x2f8bb11595b61c86:one-step-equations/e/one_step_equations" target="_blank" rel="noopener" class="lesson-link-btn">Practice on Khan Academy →</a>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-header">📝 Worksheet 2 — Two-Step Equations</div>
+        <div class="example-body" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <p style="margin:0 0 4px; font-weight:600;">ax + b = c form, step-by-step</p>
+            <p style="margin:0; font-size:0.82rem; color:#6b7280;">20 problems</p>
+          </div>
+          <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:solve-equations-inequalities/x2f8bb11595b61c86:two-steps-equations-intro/e/two_step_equations" target="_blank" rel="noopener" class="lesson-link-btn">Practice on Khan Academy →</a>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-header">📝 Worksheet 3 — Variables on Both Sides</div>
+        <div class="example-body" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <p style="margin:0 0 4px; font-weight:600;">Collect terms and solve</p>
+            <p style="margin:0; font-size:0.82rem; color:#6b7280;">15 problems, mixed difficulty</p>
+          </div>
+          <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:solve-equations-inequalities/x2f8bb11595b61c86:equations-variables-on-both-sides/e/equations-with-variables-on-both-sides" target="_blank" rel="noopener" class="lesson-link-btn">Practice on Khan Academy →</a>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-header">📝 Worksheet 4 — Inequalities</div>
+        <div class="example-body" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <p style="margin:0 0 4px; font-weight:600;">Solve &amp; graph on a number line</p>
+            <p style="margin:0; font-size:0.82rem; color:#6b7280;">Includes sign-flip practice</p>
+          </div>
+          <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:solve-equations-inequalities/x2f8bb11595b61c86:linear-inequalities/e/linear_inequalities" target="_blank" rel="noopener" class="lesson-link-btn">Practice on Khan Academy →</a>
+        </div>
+      </div>
+
+      <div class="concept-box" style="margin-top:0.5rem;">
+        <div class="concept-label">💡 Tip</div>
+        <p>Khan Academy tracks your progress and gives instant feedback. Create a free account to save your scores!</p>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(4)">← Videos</button>
       <button class="btn-nav btn-finish" onclick="finishLesson()">✓ Complete Lesson</button>
     </div>
   </div>
@@ -307,8 +403,8 @@ Graph: ●────────&gt; (closed circle at −4)</div>
 
 <script>
   // ── TAB NAVIGATION ──────────────────────────────
-  const tabCount = 4;
-  const completed = new Set();
+  const tabCount = 6;
+  const completedTabs = new Set();
 
   function showTab(i) {
     document.querySelectorAll('.lesson-panel').forEach((p, idx) => {
@@ -317,13 +413,13 @@ Graph: ●────────&gt; (closed circle at −4)</div>
     document.querySelectorAll('.tab-btn').forEach((b, idx) => {
       b.classList.toggle('active', idx === i);
     });
-    completed.add(i);
-    updateProgress();
+    completedTabs.add(i);
+    updateLessonProgress();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function updateProgress() {
-    const pct = Math.round((completed.size / tabCount) * 100);
+  function updateLessonProgress() {
+    const pct = Math.round((completedTabs.size / tabCount) * 100);
     document.getElementById('progress-fill').style.width = pct + '%';
   }
 
@@ -333,11 +429,15 @@ Graph: ●────────&gt; (closed circle at −4)</div>
     const showing = content.style.display === 'block';
     content.style.display = showing ? 'none' : 'block';
     btn.textContent = showing ? '💡 Show Hint' : '💡 Hide Hint';
-    if (!showing) {
-      btn.style.borderRadius = '8px 8px 0 0';
-    } else {
-      btn.style.borderRadius = '8px';
-    }
+    btn.style.borderRadius = showing ? '8px' : '8px 8px 0 0';
+  }
+
+  // ── VIDEO ───────────────────────────────────────
+  function loadVid(btn, id, title) {
+    document.getElementById('lesson-video').src = 'https://www.youtube.com/embed/' + id;
+    document.getElementById('vid-title').textContent = '▶ ' + title;
+    document.querySelectorAll('.vid-btn').forEach(b => b.classList.remove('active-vid'));
+    btn.classList.add('active-vid');
   }
 
   // ── QUIZ ────────────────────────────────────────
@@ -358,7 +458,6 @@ Graph: ●────────&gt; (closed circle at −4)</div>
       quizScore++;
     } else {
       btn.classList.add('wrong');
-      // Highlight the correct answer
       block.querySelectorAll('.q-option').forEach(b => {
         if (b.onclick.toString().includes('true')) b.classList.add('correct');
       });
@@ -370,22 +469,25 @@ Graph: ●────────&gt; (closed circle at −4)</div>
 
   function showResults() {
     const pct = Math.round((quizScore / totalQ) * 100);
-    let emoji = '🏆', title = 'Outstanding!', msg = '';
+    let emoji = '🏆', title = 'Outstanding!';
     if (pct >= 80) { emoji = '🏆'; title = 'Excellent work!'; }
     else if (pct >= 60) { emoji = '⭐'; title = 'Good effort!'; }
     else { emoji = '💪'; title = 'Keep practicing!'; }
-    msg = `You scored ${quizScore} out of ${totalQ} (${pct}%). ${pct >= 80 ? 'You've mastered this topic!' : 'Review the lessons above and try again.'}`;
+
+    const msg = `You scored ${quizScore} out of ${totalQ} (${pct}%). ${pct >= 80 ? "You've mastered this topic!" : 'Review the lessons above and try again.'}`;
 
     document.getElementById('result-emoji').textContent = emoji;
     document.getElementById('result-title').textContent = title;
     document.getElementById('result-msg').textContent = msg;
     document.getElementById('quiz-result').style.display = 'block';
 
-    // Save to localStorage
-    const prev = JSON.parse(localStorage.getItem('completed') || '[]');
-    if (!prev.includes('Algebra Lessons') && pct >= 60) {
-      prev.push('Algebra Lessons');
-      localStorage.setItem('completed', JSON.stringify(prev));
+    // Save to localStorage — mark Algebra Lessons complete if score >= 60%
+    if (pct >= 60) {
+      const prev = JSON.parse(localStorage.getItem('completed') || '[]');
+      if (!prev.includes('Algebra Lessons')) {
+        prev.push('Algebra Lessons');
+        localStorage.setItem('completed', JSON.stringify(prev));
+      }
     }
   }
 
@@ -400,6 +502,7 @@ Graph: ●────────&gt; (closed circle at −4)</div>
     document.getElementById('quiz-result').style.display = 'none';
   }
 
+  // BUG FIX: redirect to #dashboard so progress bar is visible immediately
   function finishLesson() {
     const prev = JSON.parse(localStorage.getItem('completed') || '[]');
     if (!prev.includes('Algebra Lessons')) {
@@ -407,12 +510,12 @@ Graph: ●────────&gt; (closed circle at −4)</div>
       localStorage.setItem('completed', JSON.stringify(prev));
     }
     alert('🎉 Algebra lesson marked as complete! Great work.');
-    window.location.href = 'index.html#resources';
+    window.location.href = 'index.html#dashboard';
   }
 
   // Mark first tab as visited on load
-  completed.add(0);
-  updateProgress();
+  completedTabs.add(0);
+  updateLessonProgress();
 </script>
 
 </body>

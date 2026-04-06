@@ -32,7 +32,9 @@
     <button class="tab-btn active" onclick="showTab(0)" id="tab-0">📖 <span>Mean &amp; Median</span></button>
     <button class="tab-btn" onclick="showTab(1)" id="tab-1">📖 <span>Mode &amp; Range</span></button>
     <button class="tab-btn" onclick="showTab(2)" id="tab-2">📖 <span>Probability</span></button>
-    <button class="tab-btn" onclick="showTab(3)" id="tab-3">🧠 <span>Practice</span></button>
+    <button class="tab-btn" onclick="showTab(3)" id="tab-3">🧠 <span>Quiz</span></button>
+    <button class="tab-btn" onclick="showTab(4)" id="tab-4">🎥 <span>Videos</span></button>
+    <button class="tab-btn" onclick="showTab(5)" id="tab-5">📄 <span>Worksheets</span></button>
   </div>
 
   <!-- PANEL 0: Mean & Median -->
@@ -290,6 +292,100 @@ Range  = 10 <span class="op">−</span> 2 = <span class="ans">8</span></div>
 
     <div class="panel-nav">
       <button class="btn-nav btn-prev" onclick="showTab(2)">← Lesson 3</button>
+      <button class="btn-nav btn-next" onclick="showTab(4)">Videos →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 4: Videos -->
+  <div class="lesson-panel" id="panel-4">
+    <h2>🎥 Statistics Video Tutorials</h2>
+    <p style="margin-bottom:1.5rem">Select a topic to watch a clear video explanation.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1.5rem;">
+      <button class="vid-btn active-vid" onclick="loadVid(this,'GDgHFHICMjI','Mean, Median, Mode')">Mean, Median &amp; Mode</button>
+      <button class="vid-btn" onclick="loadVid(this,'NK1bQKhcaag','Finding the Mean')">Calculating the Mean</button>
+      <button class="vid-btn" onclick="loadVid(this,'EgBNIHdkfLI','Finding the Median')">Finding the Median</button>
+      <button class="vid-btn" onclick="loadVid(this,'h8EYEJ32oQ8','Range &amp; Outliers')">Range &amp; Outliers</button>
+      <button class="vid-btn" onclick="loadVid(this,'KzfWUEJjG18','Basic Probability')">Basic Probability</button>
+      <button class="vid-btn" onclick="loadVid(this,'uzkc-qNVoOk','Complementary Events')">Complementary Events</button>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header" id="vid-title">▶ Mean, Median &amp; Mode</div>
+      <div class="example-body" style="padding:0.75rem;">
+        <iframe id="lesson-video" width="100%" height="340"
+          src="https://www.youtube.com/embed/GDgHFHICMjI"
+          frameborder="0" allowfullscreen loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          style="border-radius:8px; display:block;">
+        </iframe>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(3)">← Quiz</button>
+      <button class="btn-nav btn-next" onclick="showTab(5)">Worksheets →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 5: Worksheets -->
+  <div class="lesson-panel" id="panel-5">
+    <h2>📄 Statistics Worksheets</h2>
+    <p style="margin-bottom:1.5rem">Practice problems for every statistics topic covered in this lesson.</p>
+
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="example-card">
+        <div class="example-header">📝 Worksheet 1 — Mean &amp; Median</div>
+        <div class="example-body" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <p style="margin:0 0 4px; font-weight:600;">Calculate mean and median from data sets</p>
+            <p style="margin:0; font-size:0.82rem; color:#6b7280;">15 problems, includes even &amp; odd count sets</p>
+          </div>
+          <a href="https://www.khanacademy.org/math/statistics-probability/summarizing-quantitative-data/mean-median-basics/e/mean_median_and_mode" target="_blank" rel="noopener" class="lesson-link-btn">Practice on Khan Academy →</a>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-header">📝 Worksheet 2 — Mode &amp; Range</div>
+        <div class="example-body" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <p style="margin:0 0 4px; font-weight:600;">Find mode and range from real-world data</p>
+            <p style="margin:0; font-size:0.82rem; color:#6b7280;">Includes unimodal, bimodal, and no-mode sets</p>
+          </div>
+          <a href="https://www.khanacademy.org/math/statistics-probability/summarizing-quantitative-data/mean-median-basics/e/computing-the-range-of-a-data-set" target="_blank" rel="noopener" class="lesson-link-btn">Practice on Khan Academy →</a>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-header">📝 Worksheet 3 — All Four Measures</div>
+        <div class="example-body" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <p style="margin:0 0 4px; font-weight:600;">Mean, median, mode &amp; range together</p>
+            <p style="margin:0; font-size:0.82rem; color:#6b7280;">20 mixed problems</p>
+          </div>
+          <a href="https://www.khanacademy.org/math/statistics-probability/summarizing-quantitative-data/mean-median-basics/e/mean_median_and_mode" target="_blank" rel="noopener" class="lesson-link-btn">Practice on Khan Academy →</a>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-header">📝 Worksheet 4 — Probability</div>
+        <div class="example-body" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <p style="margin:0 0 4px; font-weight:600;">Simple &amp; complementary probability</p>
+            <p style="margin:0; font-size:0.82rem; color:#6b7280;">Coins, dice, spinners &amp; bags of items</p>
+          </div>
+          <a href="https://www.khanacademy.org/math/statistics-probability/probability-library/basic-theoretical-probability/e/basic_probability" target="_blank" rel="noopener" class="lesson-link-btn">Practice on Khan Academy →</a>
+        </div>
+      </div>
+
+      <div class="concept-box" style="margin-top:0.5rem;">
+        <div class="concept-label">💡 Tip</div>
+        <p>Khan Academy tracks your progress and gives instant feedback. Create a free account to save your scores!</p>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(4)">← Videos</button>
       <button class="btn-nav btn-finish" onclick="finishLesson()">✓ Complete Lesson</button>
     </div>
   </div>
@@ -298,15 +394,16 @@ Range  = 10 <span class="op">−</span> 2 = <span class="ans">8</span></div>
 
 <footer>© 2026 SolveSpace · <a href="index.html">Home</a> · <a href="index.html#resources">All Resources</a></footer>
 
+<!-- BUG FIX: Single script block only — duplicate block removed entirely -->
 <script>
-  const tabCount = 4;
-  const completed = new Set();
+  const tabCount = 6;
+  const completedTabs = new Set();
 
   function showTab(i) {
     document.querySelectorAll('.lesson-panel').forEach((p, idx) => p.classList.toggle('active', idx === i));
     document.querySelectorAll('.tab-btn').forEach((b, idx) => b.classList.toggle('active', idx === i));
-    completed.add(i);
-    document.getElementById('progress-fill').style.width = Math.round((completed.size / tabCount) * 100) + '%';
+    completedTabs.add(i);
+    document.getElementById('progress-fill').style.width = Math.round((completedTabs.size / tabCount) * 100) + '%';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -316,6 +413,13 @@ Range  = 10 <span class="op">−</span> 2 = <span class="ans">8</span></div>
     content.style.display = showing ? 'none' : 'block';
     btn.textContent = showing ? '💡 Show Hint' : '💡 Hide Hint';
     btn.style.borderRadius = showing ? '8px' : '8px 8px 0 0';
+  }
+
+  function loadVid(btn, id, title) {
+    document.getElementById('lesson-video').src = 'https://www.youtube.com/embed/' + id;
+    document.getElementById('vid-title').textContent = '▶ ' + title;
+    document.querySelectorAll('.vid-btn').forEach(b => b.classList.remove('active-vid'));
+    btn.classList.add('active-vid');
   }
 
   let quizScore = 0, quizAnswered = {};
@@ -341,26 +445,30 @@ Range  = 10 <span class="op">−</span> 2 = <span class="ans">8</span></div>
       document.getElementById('result-title').textContent = pct >= 80 ? 'Excellent work!' : pct >= 60 ? 'Good effort!' : 'Keep practicing!';
       document.getElementById('result-msg').textContent = `You scored ${quizScore} out of ${totalQ} (${pct}%).`;
       document.getElementById('quiz-result').style.display = 'block';
-      if (pct >= 60) { const p = JSON.parse(localStorage.getItem('completed') || '[]'); if (!p.includes('Statistics Lessons')) { p.push('Statistics Lessons'); localStorage.setItem('completed', JSON.stringify(p)); } }
+      if (pct >= 60) {
+        const p = JSON.parse(localStorage.getItem('completed') || '[]');
+        if (!p.includes('Statistics Lessons')) { p.push('Statistics Lessons'); localStorage.setItem('completed', JSON.stringify(p)); }
+      }
     }
   }
 
   function retryQuiz() {
     quizScore = 0; quizAnswered = {};
-    document.querySelectorAll('.q-option').forEach(b => { b.disabled = false; b.classList.remove('correct','wrong'); });
+    document.querySelectorAll('.q-option').forEach(b => { b.disabled = false; b.classList.remove('correct', 'wrong'); });
     document.querySelectorAll('.q-feedback').forEach(f => f.innerHTML = '');
     document.getElementById('quiz-result').style.display = 'none';
   }
 
+  // BUG FIX: redirect to #dashboard so progress updates are visible immediately
   function finishLesson() {
     const p = JSON.parse(localStorage.getItem('completed') || '[]');
     if (!p.includes('Statistics Lessons')) { p.push('Statistics Lessons'); localStorage.setItem('completed', JSON.stringify(p)); }
     alert('🎉 Statistics lesson complete! Great work.');
-    window.location.href = 'index.html#resources';
+    window.location.href = 'index.html#dashboard';
   }
 
-  completed.add(0);
-  document.getElementById('progress-fill').style.width = Math.round((1/tabCount)*100) + '%';
+  completedTabs.add(0);
+  document.getElementById('progress-fill').style.width = Math.round((1 / tabCount) * 100) + '%';
 </script>
 </body>
 </html>

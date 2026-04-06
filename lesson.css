@@ -494,4 +494,44 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   .lesson-tabs, .panel-nav { display: none !important; }
   .lesson-panel { display: block !important; page-break-inside: avoid; }
   body { font-size: 11pt; }
+
+  /* ── VIDEO SELECTOR BUTTONS ── */
+.vid-btn {
+  padding: 9px 12px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+.vid-btn:hover { border-color: var(--blue); color: var(--blue); background: #eff6ff; }
+.vid-btn.active-vid { border-color: var(--blue); background: #eff6ff; color: var(--blue); font-weight: 600; }
+
+/* Worksheet link button override inside lesson pages */
+.lesson-link-btn {
+  display: inline-block;
+  background: #4f6cff;
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.lesson-link-btn:hover { background: #3c57d6; }
+
+@media (max-width: 600px) {
+  .vid-btn { font-size: 0.75rem; padding: 8px 10px; }
+}
 }

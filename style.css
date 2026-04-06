@@ -122,10 +122,11 @@ section {
 /* ── 5. HERO ── */
 .hero {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 2.25rem 2rem 2.5rem;
   background: linear-gradient(120deg, #3a6cf4, #8ac4ff);
   color: white;
   border-radius: 0 0 2rem 2rem;
+  min-height: unset;
 }
 
 .hero h1 {

@@ -27,7 +27,6 @@ function toggleNav() {
 }
 
 // ─── RESOURCE SEARCH ─────────────────────────────────────────
-// Defined at top level so onkeyup="filterResources()" in HTML can find it
 function filterResources() {
   const input = document.getElementById("resourceSearch").value.toLowerCase();
   document.querySelectorAll(".resource-card").forEach(card => {
@@ -53,17 +52,25 @@ const lessons = [
 ];
 
 let currentLesson = 0;
-const totalLessons = lessons.length;
 
 // ─── PROGRESS BAR ────────────────────────────────────────────
+const TOTAL_ACTIVITIES = 3; // Algebra, Geometry, Statistics
+
 function updateProgress() {
-  const percent = Math.floor(((currentLesson + 1) / totalLessons) * 100);
   const fill = document.getElementById("progress-fill");
   const text = document.getElementById("progress-text");
-  if (fill && text) {
-    fill.style.width = percent + "%";
-    text.textContent = percent + "% of course completed";
-  }
+  if (!fill || !text) return;
+  const completed = JSON.parse(localStorage.getItem("completed") || "[]");
+  const pct = Math.min(100, Math.round((completed.length / TOTAL_ACTIVITIES) * 100));
+  fill.style.width = pct + "%";
+  text.textContent = pct + "% of course completed";
+}
+
+// ─── RESET PROGRESS ──────────────────────────────────────────
+function resetProgress() {
+  if (!confirm("Reset all progress? This will clear your completed lessons.")) return;
+  localStorage.removeItem("completed");
+  renderCompleted();
 }
 
 // ─── LESSON MODAL ────────────────────────────────────────────
@@ -71,7 +78,6 @@ function openLesson() {
   currentLesson = 0;
   loadLesson();
   document.getElementById("lesson-box").style.display = "block";
-  updateProgress();
 }
 
 function loadLesson() {
@@ -83,7 +89,6 @@ function nextLesson() {
   if (currentLesson < lessons.length - 1) {
     currentLesson++;
     loadLesson();
-    updateProgress();
   }
 }
 
@@ -91,7 +96,6 @@ function prevLesson() {
   if (currentLesson > 0) {
     currentLesson--;
     loadLesson();
-    updateProgress();
   }
 }
 
@@ -106,9 +110,10 @@ function openVideo() {
 }
 function closeVideo() {
   document.getElementById("video-box").style.display = "none";
+  markCompleted("Video Tutorials");
 }
 function loadVideo(videoId) {
-  document.getElementById("video-frame").src = "https://www.youtube.com/embed/" + videoId;
+  document.getElementById("video-frame").src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
 }
 
 // ─── QUIZ ────────────────────────────────────────────────────
@@ -134,11 +139,8 @@ function showQuiz() {
 function loadQuestion() {
   answeredThisQuestion = false;
   const q = quizData[currentQuestion];
-
-  // Show question with number
   document.getElementById("quiz-question").textContent =
     `Q${currentQuestion + 1}/${quizData.length}: ${q.question}`;
-
   const buttons = document.querySelectorAll(".quiz-options button");
   buttons.forEach((btn, i) => {
     btn.textContent = q.options[i];
@@ -147,43 +149,29 @@ function loadQuestion() {
     btn.style.color = "";
     btn.onclick = () => checkAnswer(i);
   });
-
   document.getElementById("quiz-result").textContent = "";
-
-  // Update score display
   updateScoreDisplay();
 }
 
 function checkAnswer(selected) {
-  if (answeredThisQuestion) return; // prevent double-clicking
+  if (answeredThisQuestion) return;
   answeredThisQuestion = true;
-
   const q = quizData[currentQuestion];
   const buttons = document.querySelectorAll(".quiz-options button");
   const isCorrect = selected === q.correct;
-
   if (isCorrect) quizScore++;
-
   buttons.forEach((btn, i) => {
     btn.disabled = true;
-    if (i === q.correct) {
-      btn.style.background = "#22c55e";
-      btn.style.color = "white";
-    } else if (i === selected && !isCorrect) {
-      btn.style.background = "#ef4444";
-      btn.style.color = "white";
-    }
+    if (i === q.correct) { btn.style.background = "#22c55e"; btn.style.color = "white"; }
+    else if (i === selected && !isCorrect) { btn.style.background = "#ef4444"; btn.style.color = "white"; }
   });
-
   document.getElementById("quiz-result").textContent = isCorrect ? "✅ Correct!" : `❌ The answer was: ${q.options[q.correct]}`;
   updateScoreDisplay();
 }
 
 function updateScoreDisplay() {
   const scoreEl = document.getElementById("quiz-score-display");
-  if (scoreEl) {
-    scoreEl.textContent = `Score: ${quizScore}/${currentQuestion + (answeredThisQuestion ? 1 : 0)}`;
-  }
+  if (scoreEl) scoreEl.textContent = `Score: ${quizScore}/${currentQuestion + (answeredThisQuestion ? 1 : 0)}`;
 }
 
 function nextQuestion() {
@@ -197,12 +185,11 @@ function nextQuestion() {
 
 function showQuizResults() {
   const pct = Math.round((quizScore / quizData.length) * 100);
-  let emoji = "🌟";
   let msg = "Excellent work!";
-  if (pct < 60) { emoji = "📚"; msg = "Keep practicing — you've got this!"; }
-  else if (pct < 80) { emoji = "👍"; msg = "Good effort! Review the ones you missed."; }
+  if (pct < 60) msg = "Keep practicing — you've got this!";
+  else if (pct < 80) msg = "Good effort! Review the ones you missed.";
 
-  document.getElementById("quiz-question").textContent = `${emoji} Quiz Complete!`;
+  document.getElementById("quiz-question").textContent = `Quiz Complete!`;
   document.querySelector(".quiz-options").innerHTML = `
     <div style="text-align:center; padding: 12px 0;">
       <div style="font-size:2.5rem; margin-bottom:6px;">${pct >= 80 ? "🏆" : pct >= 60 ? "⭐" : "💪"}</div>
@@ -215,11 +202,8 @@ function showQuizResults() {
   if (document.getElementById("quiz-score-display")) {
     document.getElementById("quiz-score-display").textContent = `Final Score: ${quizScore}/${quizData.length}`;
   }
-
-  // Save best score to localStorage
   const prev = parseInt(localStorage.getItem("quiz-best") || "0");
   if (quizScore > prev) localStorage.setItem("quiz-best", quizScore);
-
   if (quizScore >= 4) markCompleted("Practice Quiz");
 }
 
@@ -233,8 +217,8 @@ function markCompleted(activity) {
   if (!completed.includes(activity)) {
     completed.push(activity);
     localStorage.setItem("completed", JSON.stringify(completed));
-    renderCompleted();
   }
+  renderCompleted();
 }
 
 function renderCompleted() {
@@ -244,13 +228,21 @@ function renderCompleted() {
   if (completed.length === 0) {
     list.innerHTML = "<li>No activities completed yet.</li>";
   } else {
-    list.innerHTML = completed.map(item => `<li>✅ ${item}</li>`).join("");
+    list.innerHTML = completed.map(item => `<li> ${item}</li>`).join("");
   }
+  updateProgress();
 }
 
 // ─── WORKSHEET DOWNLOAD ──────────────────────────────────────
 function downloadWorksheet() {
+  markCompleted("Worksheets");
   alert("📄 Worksheet coming soon! Check back before your next session.");
+}
+
+// ─── ANNOUNCEMENT ────────────────────────────────────────────
+function closeAnnouncement() {
+  const bar = document.getElementById("announcement-bar");
+  if (bar) bar.style.display = "none";
 }
 
 // ─── SCROLL REVEAL ───────────────────────────────────────────
@@ -275,7 +267,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let date = new Date();
 
-  // Build session dates in the CURRENT month so they're always visible
   const today = new Date();
   const y = today.getFullYear();
   const m = String(today.getMonth() + 1).padStart(2, "0");
@@ -295,12 +286,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const year = date.getFullYear();
     const month = date.getMonth();
     monthYear.textContent = date.toLocaleString("default", { month: "long", year: "numeric" });
-
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-
     for (let i = 0; i < firstDay; i++) calendar.appendChild(document.createElement("div"));
-
     for (let day = 1; day <= daysInMonth; day++) {
       const dayEl = document.createElement("div");
       dayEl.textContent = day;
