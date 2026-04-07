@@ -339,7 +339,10 @@ section {
   padding: 40px 20px;
 }
 
-.resources-section h1 { font-size: 2.8rem; }
+.resources-section h1 {
+   font-size: 2.8rem;
+   color: white;
+ }
 
 /* FIX: search input moved out of inline style */
 #resourceSearch {

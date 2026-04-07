@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
   <nav class="navbar">
@@ -22,7 +21,8 @@
       <li><a href="#resources">Resources</a></li>
       <li><a href="#team">Team</a></li>
       <li><a href="upload.html">Submit Homework</a></li>
-      <li><a href="login.html" class="nav-btn">Sign In</a></li>
+      <!-- Auth item — swapped by JS based on session -->
+      <li id="nav-auth-item"><a href="login.html" class="nav-btn">Sign In</a></li>
       <li><button id="theme-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button></li>
     </ul>
     <button class="hamburger" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
@@ -46,9 +46,7 @@
     <div class="about-container">
       <div class="about-text">
         <h1>About SolveSpace</h1>
-        <p class="about-subtitle">
-          A student-created math learning hub built for collaboration, clarity, and confidence.
-        </p>
+        <p class="about-subtitle">A student-created math learning hub built for collaboration, clarity, and confidence.</p>
         <div class="about-block">
           <h2>Our Mission</h2>
           <p>To make math accessible and fun for all students through peer tutoring, group study sessions, and interactive resources.</p>
@@ -96,7 +94,7 @@
   <!-- Dashboard -->
   <section id="dashboard" class="page reveal dashboard-section">
     <h1>Student Dashboard</h1>
-    <p class="dashboard-subtitle">Track your learning progress and upcoming sessions</p>
+    <p class="dashboard-subtitle" id="dashboard-subtitle">Track your learning progress and upcoming sessions</p>
     <div class="dashboard-grid">
       <div class="dashboard-card">
         <h3>📈 Learning Progress</h3>
@@ -130,39 +128,170 @@
   <section id="resources" class="page reveal resources-section">
     <h1>Learning Resources</h1>
     <input type="text" id="resourceSearch" onkeyup="filterResources()" placeholder="Search lessons (e.g. Algebra)...">
-
     <div class="resources-grid">
-
       <div class="resource-card">
         <h3>📘 Algebra Lessons</h3>
         <p>Equations, inequalities, and multi-step problems — with worked examples, quizzes, videos, and worksheets.</p>
         <a href="lesson-algebra.html" class="lesson-link-btn">Start Lesson</a>
       </div>
-
       <div class="resource-card">
         <h3>📐 Geometry Lessons</h3>
         <p>Angles, triangles, the Pythagorean theorem, area and perimeter — with worked examples, quizzes, videos, and worksheets.</p>
         <a href="lesson-geometry.html" class="lesson-link-btn">Start Lesson</a>
       </div>
-
       <div class="resource-card">
         <h3>📊 Statistics Lessons</h3>
         <p>Mean, median, mode, range, and probability — with worked examples, quizzes, videos, and worksheets.</p>
         <a href="lesson-statistics.html" class="lesson-link-btn">Start Lesson</a>
       </div>
-
     </div>
   </section>
 
+  <!-- Student Reviews -->
+  <section id="reviews" class="page reveal" style="background:var(--bg-color,#f9fafc); padding:60px 20px; text-align:center;">
+    <h1 style="font-size:2.8rem; margin-bottom:0.5rem;">What Students Say</h1>
+    <p style="color:#555; margin-bottom:2.5rem;">Real feedback from SolveSpace learners</p>
+
+    <div style="max-width:680px; margin:0 auto; position:relative; overflow:hidden;" id="rv-outer">
+      <div id="rv-track" style="display:flex; transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);">
+
+        <div style="min-width:100%; padding:0 8px; box-sizing:border-box;">
+          <div style="background:var(--card-bg,#fff); border-radius:16px; padding:2rem; box-shadow:0 8px 25px rgba(0,0,0,0.08); text-align:left;">
+            <div style="color:#F59E0B; font-size:1.3rem; margin-bottom:10px;">★★★★★</div>
+            <p style="font-size:0.95rem; line-height:1.7; margin:0 0 1.25rem;">"SolveSpace completely changed how I study for math. The step-by-step examples actually make sense — I went from failing quizzes to getting A's in three weeks."</p>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-weight:600;color:#3a6cf4;font-size:0.85rem;flex-shrink:0;">JR</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.9rem;">Jamie R.</p><p style="margin:0;font-size:0.78rem;color:#6b7280;">Algebra student</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="min-width:100%; padding:0 8px; box-sizing:border-box;">
+          <div style="background:var(--card-bg,#fff); border-radius:16px; padding:2rem; box-shadow:0 8px 25px rgba(0,0,0,0.08); text-align:left;">
+            <div style="color:#F59E0B; font-size:1.3rem; margin-bottom:10px;">★★★★★</div>
+            <p style="font-size:0.95rem; line-height:1.7; margin:0 0 1.25rem;">"The geometry lessons with the hint buttons are genius. I can try the problem first then reveal the hint if I'm stuck. It feels like having a real tutor beside me."</p>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:#f5f3ff;display:flex;align-items:center;justify-content:center;font-weight:600;color:#7c3aed;font-size:0.85rem;flex-shrink:0;">SK</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.9rem;">Sofia K.</p><p style="margin:0;font-size:0.78rem;color:#6b7280;">Geometry student</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="min-width:100%; padding:0 8px; box-sizing:border-box;">
+          <div style="background:var(--card-bg,#fff); border-radius:16px; padding:2rem; box-shadow:0 8px 25px rgba(0,0,0,0.08); text-align:left;">
+            <div style="color:#F59E0B; font-size:1.3rem; margin-bottom:10px;">★★★★★</div>
+            <p style="font-size:0.95rem; line-height:1.7; margin:0 0 1.25rem;">"I used to dread statistics, but the probability lessons broke it down so simply. The quizzes after each section really lock it in. Highly recommend!"</p>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:#f0fdf4;display:flex;align-items:center;justify-content:center;font-weight:600;color:#16a34a;font-size:0.85rem;flex-shrink:0;">MT</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.9rem;">Marcus T.</p><p style="margin:0;font-size:0.78rem;color:#6b7280;">Statistics student</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="min-width:100%; padding:0 8px; box-sizing:border-box;">
+          <div style="background:var(--card-bg,#fff); border-radius:16px; padding:2rem; box-shadow:0 8px 25px rgba(0,0,0,0.08); text-align:left;">
+            <div style="color:#F59E0B; font-size:1.3rem; margin-bottom:10px;">★★★★★</div>
+            <p style="font-size:0.95rem; line-height:1.7; margin:0 0 1.25rem;">"The tutoring schedule made it so easy to book sessions. My teacher noticed a real improvement in my homework after just a month of using SolveSpace."</p>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:#fff7ed;display:flex;align-items:center;justify-content:center;font-weight:600;color:#ea580c;font-size:0.85rem;flex-shrink:0;">AL</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.9rem;">Aisha L.</p><p style="margin:0;font-size:0.78rem;color:#6b7280;">Pre-Calculus student</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="min-width:100%; padding:0 8px; box-sizing:border-box;">
+          <div style="background:var(--card-bg,#fff); border-radius:16px; padding:2rem; box-shadow:0 8px 25px rgba(0,0,0,0.08); text-align:left;">
+            <div style="color:#F59E0B; font-size:1.3rem; margin-bottom:10px;">★★★★★</div>
+            <p style="font-size:0.95rem; line-height:1.7; margin:0 0 1.25rem;">"Watching the progress bar move from 0% to 100% after finishing a lesson felt genuinely rewarding. It keeps me motivated to come back every day."</p>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-weight:600;color:#3a6cf4;font-size:0.85rem;flex-shrink:0;">DP</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.9rem;">Daniel P.</p><p style="margin:0;font-size:0.78rem;color:#6b7280;">Algebra &amp; Geometry student</p></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-top:1.5rem;">
+      <button id="rv-prev" style="width:40px;height:40px;border-radius:50%;border:1.5px solid #d1d5db;background:#fff;cursor:pointer;font-size:1.2rem;line-height:1;display:flex;align-items:center;justify-content:center; color:#555;">&#8249;</button>
+      <div id="rv-dots" style="display:flex;gap:7px;align-items:center;"></div>
+      <button id="rv-next" style="width:40px;height:40px;border-radius:50%;border:1.5px solid #d1d5db;background:#fff;cursor:pointer;font-size:1.2rem;line-height:1;display:flex;align-items:center;justify-content:center; color:#555;">&#8250;</button>
+    </div>
+  </section>
+
+  <script>
+  (function() {
+    var track  = document.getElementById('rv-track');
+    var dotsEl = document.getElementById('rv-dots');
+    var prev   = document.getElementById('rv-prev');
+    var next   = document.getElementById('rv-next');
+    var total  = track.children.length;
+    var cur    = 0;
+    var startX = 0;
+
+    // Build dots
+    for (var i = 0; i < total; i++) {
+      var d = document.createElement('button');
+      d.style.cssText = 'width:8px;height:8px;border-radius:50%;border:none;padding:0;cursor:pointer;transition:all 0.2s;background:#d1d5db;';
+      d.setAttribute('data-i', i);
+      dotsEl.appendChild(d);
+    }
+
+    function go(n) {
+      cur = ((n % total) + total) % total;
+      track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+      Array.from(dotsEl.children).forEach(function(d, i) {
+        if (i === cur) {
+          d.style.background = '#3a6cf4';
+          d.style.width = '20px';
+          d.style.borderRadius = '4px';
+        } else {
+          d.style.background = '#d1d5db';
+          d.style.width = '8px';
+          d.style.borderRadius = '50%';
+        }
+      });
+    }
+
+    // Dot clicks
+    Array.from(dotsEl.children).forEach(function(d) {
+      d.addEventListener('click', function() { go(parseInt(this.getAttribute('data-i'))); });
+    });
+
+    // Arrow clicks
+    prev.addEventListener('click', function() { go(cur - 1); });
+    next.addEventListener('click', function() { go(cur + 1); });
+
+    // Touch swipe
+    var outer = document.getElementById('rv-outer');
+    outer.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, {passive: true});
+    outer.addEventListener('touchend',   function(e) {
+      var dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) go(dx < 0 ? cur + 1 : cur - 1);
+    });
+
+    // Mouse drag
+    outer.addEventListener('mousedown', function(e) { startX = e.clientX; });
+    outer.addEventListener('mouseup',   function(e) {
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > 40) go(dx < 0 ? cur + 1 : cur - 1);
+    });
+
+    go(0);
+  })();
+  </script>
+
   <!-- Meet the Team -->
-  <section id="team" class="page reveal team-section">
-    <h1>Meet the Team</h1>
-    <p class="team-subtitle">SolveSpace is built by students, for students </p>
+  <section id="team" class="page reveal team-section" style="background:linear-gradient(120deg,#3a6cf4,#8ac4ff); padding:60px 20px;">
+    <h1 style="color:white;">Meet the Team</h1>
+    <p class="team-subtitle" style="color:rgba(255,255,255,0.85);">SolveSpace is built by students, for students</p>
     <div class="team-grid" style="max-width:600px; margin:0 auto;">
       <div class="team-card">
-        <h3 class="team-name">Massim Amantia</h3>
+        <h3 class="team-name">Massimo Amantia</h3>
         <span class="team-role">Lead Developer</span>
-        <p class="team-bio">Built the site using HTML, CSS, and JavaScript. Passionate about making math less intimidating.</p>
+        <p class="team-bio">Built the site from scratch using HTML, CSS, and JavaScript. Passionate about making math less intimidating.</p>
       </div>
       <div class="team-card">
         <h3 class="team-name">Madden Guimond</h3>
@@ -193,7 +322,7 @@
         <p>© 2026 SolveSpace. All rights reserved.</p>
         <p>Font: <a href="https://fonts.google.com/specimen/Poppins" target="_blank" rel="noopener">Poppins</a> via Google Fonts (Open Font License)</p>
         <p>Photo: <a href="https://unsplash.com/photos/1522202176988-66273c2fd55f" target="_blank" rel="noopener">Unsplash</a> (free to use license)</p>
-        <p>Videos: <a href="https://youtube.com" target="_blank" rel="noopener">YouTube</a> — embedded via standard iframe API</p>
+        <p>Videos: <a href="https://youtube.com" target="_blank" rel="noopener">YouTube / Khan Academy</a> — embedded via standard iframe API</p>
         <p>No copyrighted materials were reproduced without permission.</p>
       </div>
     </div>
@@ -203,5 +332,28 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    // ── SESSION NAV ──────────────────────────────────────────
+    (function() {
+      const session = JSON.parse(localStorage.getItem('ss-session') || '{}');
+      const authItem = document.getElementById('nav-auth-item');
+      if (session.loggedIn && session.username) {
+        // Show username + sign out button
+        authItem.innerHTML = `
+          <span style="color:rgba(255,255,255,0.9); font-size:0.85rem; font-weight:600;">👤 ${session.username}</span>
+          &nbsp;
+          <button onclick="signOut()" style="background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.5); color:white; border-radius:6px; padding:4px 10px; font-size:0.8rem; cursor:pointer; font-family:inherit;">Sign Out</button>
+        `;
+        // Personalise dashboard subtitle
+        const sub = document.getElementById('dashboard-subtitle');
+        if (sub) sub.textContent = `Welcome back, ${session.username}! Here's your progress.`;
+      }
+    })();
+
+    function signOut() {
+      localStorage.removeItem('ss-session');
+      window.location.href = 'login.html';
+    }
+  </script>
 </body>
 </html>
