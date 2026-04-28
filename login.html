@@ -305,30 +305,20 @@
       });
   }
 
-  // ── GOOGLE SIGN IN — use redirect, not popup (avoids blockers) ──
+  // ── GOOGLE SIGN IN — popup method ────────────────────────
   function handleGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('email');
     provider.addScope('profile');
-    auth.signInWithRedirect(provider).catch(function(err) {
-      console.error('Redirect error:', err);
-      document.getElementById('si-error').textContent = friendlyError(err.code);
-    });
-  }
-
-  // Handle redirect result when page loads
-  auth.getRedirectResult()
-    .then(function(result) {
-      if (result && result.user) {
+    auth.signInWithPopup(provider)
+      .then(function(result) {
         saveSessionAndRedirect(result.user);
-      }
-    })
-    .catch(function(err) {
-      console.error('Redirect result error:', err);
-      if (err.code) {
+      })
+      .catch(function(err) {
+        console.error('Google sign-in error:', err);
         document.getElementById('si-error').textContent = friendlyError(err.code);
-      }
-    });
+      });
+  }
 
   // ── FORGOT PASSWORD ───────────────────────────────────────
   function handleForgot() {
