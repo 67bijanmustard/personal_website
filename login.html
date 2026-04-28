@@ -308,7 +308,12 @@
   // ── GOOGLE SIGN IN — use redirect, not popup (avoids blockers) ──
   function handleGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithRedirect(provider);
+    provider.addScope('email');
+    provider.addScope('profile');
+    auth.signInWithRedirect(provider).catch(function(err) {
+      console.error('Redirect error:', err);
+      document.getElementById('si-error').textContent = friendlyError(err.code);
+    });
   }
 
   // Handle redirect result when page loads
@@ -319,6 +324,7 @@
       }
     })
     .catch(function(err) {
+      console.error('Redirect result error:', err);
       if (err.code) {
         document.getElementById('si-error').textContent = friendlyError(err.code);
       }
