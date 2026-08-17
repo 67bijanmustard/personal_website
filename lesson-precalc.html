@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SolveSpace – Pre-Calculus Lessons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lesson.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">SolveSpace</a>
+  <a href="index.html#resources" class="nav-back">← Back to Resources</a>
+</nav>
+
+<div class="lesson-hero" style="background: linear-gradient(120deg, #c2410c, #f97316);">
+  <span class="subject-badge">📉 Pre-Calculus</span>
+  <h1>Functions, Trig &amp; Exponentials</h1>
+  <p>Build the foundation for Calculus — master functions, trigonometry, and exponential growth.</p>
+  <div class="lesson-progress-bar">
+    <div class="lesson-progress-fill" id="progress-fill"></div>
+  </div>
+</div>
+
+<main>
+  <a href="index.html#resources" class="back-link">← Resources</a>
+
+  <!-- TABS -->
+  <div class="lesson-tabs">
+    <button class="tab-btn active" onclick="showTab(0)" id="tab-0">📖 <span>Functions</span></button>
+    <button class="tab-btn" onclick="showTab(1)" id="tab-1">📖 <span>Trig Basics</span></button>
+    <button class="tab-btn" onclick="showTab(2)" id="tab-2">📖 <span>Exponentials</span></button>
+    <button class="tab-btn" onclick="showTab(3)" id="tab-3">🧠 <span>Quiz</span></button>
+    <button class="tab-btn" onclick="showTab(4)" id="tab-4">🎥 <span>Videos</span></button>
+    <button class="tab-btn" onclick="showTab(5)" id="tab-5">📄 <span>Worksheets</span></button>
+  </div>
+
+  <!-- PANEL 0: Functions -->
+  <div class="lesson-panel active" id="panel-0">
+    <h2>🔁 Functions &amp; Their Graphs</h2>
+    <p>A <strong>function</strong> is a rule that assigns exactly one output to every input. Functions are the language of calculus — understanding them deeply is the most important preparation you can do.</p>
+
+    <div class="concept-box">
+      <div class="concept-label">Key Concept</div>
+      <p>A relation is a function if every x-value maps to <em>exactly one</em> y-value. Use the <strong>vertical line test</strong>: if any vertical line crosses the graph more than once, it is NOT a function.</p>
+    </div>
+
+    <h3>Function Notation</h3>
+    <p>Instead of writing <em>y = 2x + 1</em>, we write <strong>f(x) = 2x + 1</strong>. This notation makes it easy to evaluate the function at specific inputs.</p>
+    <ul>
+      <li><strong>f(3)</strong> means: substitute x = 3 into the formula → f(3) = 2(3) + 1 = 7</li>
+      <li><strong>Domain</strong>: all allowed x-values (inputs)</li>
+      <li><strong>Range</strong>: all possible y-values (outputs)</li>
+    </ul>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 1 — Evaluating a Function</div>
+      <div class="example-body">
+        <div class="example-problem">Given f(x) = x² − 3x + 2, find f(4)</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Substitute x = 4 everywhere you see x in the formula.</div>
+        <ol class="steps">
+          <li>Replace every x with 4: &nbsp; f(4) = (4)² − 3(4) + 2</li>
+          <li>Evaluate each term: &nbsp; 16 − 12 + 2</li>
+          <li>Simplify: &nbsp; f(4) = 6</li>
+        </ol>
+        <div class="formula">f(x) = x² − 3x + 2
+f(4) = <span class="hi">(4)²</span> − 3<span class="hi">(4)</span> + 2
+     = 16 − 12 + 2
+     = <span class="ans">6</span></div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 2 — Domain Restrictions</div>
+      <div class="example-body">
+        <div class="example-problem">Find the domain of f(x) = 1 / (x − 3)</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">A fraction is undefined when the denominator equals zero. What x makes x − 3 = 0?</div>
+        <ol class="steps">
+          <li>Set denominator ≠ 0: &nbsp; x − 3 ≠ 0</li>
+          <li>Solve: &nbsp; x ≠ 3</li>
+          <li>Domain: all real numbers except x = 3</li>
+        </ol>
+        <div class="formula">Denominator: x − 3 ≠ 0
+x ≠ <span class="ans">3</span>
+Domain: (-∞, 3) ∪ (3, +∞)</div>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <span></span>
+      <button class="btn-nav btn-next" onclick="showTab(1)">Next: Trigonometry →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 1: Trigonometry Basics -->
+  <div class="lesson-panel" id="panel-1">
+    <h2>📐 Trigonometry Basics</h2>
+    <p>Trigonometry studies relationships between angles and side lengths of triangles. It is the foundation of waves, oscillation, and calculus derivatives of circular motion.</p>
+
+    <div class="concept-box">
+      <div class="concept-label">Key Concept — SOH CAH TOA</div>
+      <p><strong>Sin θ = Opposite / Hypotenuse</strong><br>
+         <strong>Cos θ = Adjacent / Hypotenuse</strong><br>
+         <strong>Tan θ = Opposite / Adjacent</strong></p>
+    </div>
+
+    <h3>Reference Angles (Unit Circle)</h3>
+    <p>The <strong>unit circle</strong> (radius = 1) gives exact values for all standard angles. Memorize these three:</p>
+    <table style="border-collapse:collapse; font-size:0.88rem; margin: 0.75rem 0;">
+      <tr style="background:#f0f4ff;">
+        <th style="padding:8px 14px; text-align:left; border:1px solid #e5e7eb;">Angle</th>
+        <th style="padding:8px 14px; text-align:left; border:1px solid #e5e7eb;">sin θ</th>
+        <th style="padding:8px 14px; text-align:left; border:1px solid #e5e7eb;">cos θ</th>
+        <th style="padding:8px 14px; text-align:left; border:1px solid #e5e7eb;">tan θ</th>
+      </tr>
+      <tr>
+        <td style="padding:8px 14px; border:1px solid #e5e7eb;">30° (π/6)</td>
+        <td style="padding:8px 14px; border:1px solid #e5e7eb;">1/2</td>
+        <td style="padding:8px 14px; border:1px solid #e5e7eb;">√3/2</td>
+        <td style="padding:8px 14px; border:1px solid #e5e7eb;">1/√3</td>
+      </tr>
+      <tr style="background:#f8f9ff;">
+        <td style="padding:8px 14px; border:1px solid #e5e7eb;">45° (π/4)</td>
+        <td style="padding:8px 14px; border:1px solid #e5e7eb;">√2/2</td>
+        <td style="padding:8px 14px; border:1px solid #e5e7eb;">√2/2</td>
+        <td style="padding:8px 14px; border:1px solid #e5e7eb;">1</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 14px; border:1px solid #e5e7eb;">60° (π/3)</td>
+        <td style="padding:8px 14px; border:1px solid #e5e7eb;">√3/2</td>
+        <td style="padding:8px 14px; border:1px solid #e5e7eb;">1/2</td>
+        <td style="padding:8px 14px; border:1px solid #e5e7eb;">√3</td>
+      </tr>
+    </table>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example — Right Triangle</div>
+      <div class="example-body">
+        <div class="example-problem">In a right triangle, the opposite side = 5, hypotenuse = 13. Find sin θ, cos θ, tan θ.</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Use the Pythagorean theorem to find the adjacent side first: a² + 5² = 13²</div>
+        <ol class="steps">
+          <li>Find adjacent: &nbsp; adj² = 13² − 5² = 169 − 25 = 144 → adj = 12</li>
+          <li>sin θ = opp/hyp = 5/13</li>
+          <li>cos θ = adj/hyp = 12/13</li>
+          <li>tan θ = opp/adj = 5/12</li>
+        </ol>
+        <div class="formula">adj = √(13² − 5²) = <span class="ans">12</span>
+sin θ = 5/13 ≈ <span class="ans">0.385</span>
+cos θ = 12/13 ≈ <span class="ans">0.923</span>
+tan θ = 5/12 ≈ <span class="ans">0.417</span></div>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(0)">← Functions</button>
+      <button class="btn-nav btn-next" onclick="showTab(2)">Next: Exponentials →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 2: Exponentials & Logarithms -->
+  <div class="lesson-panel" id="panel-2">
+    <h2>📈 Exponential &amp; Logarithmic Functions</h2>
+    <p>Exponential functions model rapid growth and decay — from compound interest to radioactive decay. Logarithms are their inverses and appear in everything from sound levels to earthquake magnitudes.</p>
+
+    <div class="concept-box">
+      <div class="concept-label">Key Concept</div>
+      <p><strong>y = bˣ</strong> is an exponential function (b &gt; 0, b ≠ 1).<br>
+         <strong>log_b(y) = x</strong> is its inverse — "log base b of y equals x."<br>
+         <em>ln x = log_e x</em> is the natural log (base e ≈ 2.718).</p>
+    </div>
+
+    <h3>Exponent Rules (Review)</h3>
+    <ul>
+      <li>b^m · b^n = b^(m+n)</li>
+      <li>b^m / b^n = b^(m−n)</li>
+      <li>(b^m)^n = b^(mn)</li>
+      <li>b⁰ = 1 &nbsp; (any nonzero base)</li>
+      <li>b^(−n) = 1/b^n</li>
+    </ul>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 1 — Solving an Exponential Equation</div>
+      <div class="example-body">
+        <div class="example-problem">Solve: 2ˣ = 32</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Write 32 as a power of 2. 32 = 2⁵.</div>
+        <ol class="steps">
+          <li>Rewrite 32 as a power of 2: &nbsp; 32 = 2⁵</li>
+          <li>Set exponents equal: &nbsp; x = 5</li>
+          <li>Check: &nbsp; 2⁵ = 32 ✅</li>
+        </ol>
+        <div class="formula">2ˣ = 32 = <span class="hi">2⁵</span>
+∴ x = <span class="ans">5</span></div>
+      </div>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header">✏️ Worked Example 2 — Solving a Logarithmic Equation</div>
+      <div class="example-body">
+        <div class="example-problem">Solve: log₂(x) = 4</div>
+        <button class="hint-btn" onclick="toggleHint(this)">💡 Show Hint</button>
+        <div class="hint-content">Convert from log form to exponential form: log_b(x) = n means b^n = x.</div>
+        <ol class="steps">
+          <li>Convert: &nbsp; log₂(x) = 4 → 2⁴ = x</li>
+          <li>Evaluate: &nbsp; x = 16</li>
+          <li>Check: &nbsp; log₂(16) = log₂(2⁴) = 4 ✅</li>
+        </ol>
+        <div class="formula">log₂(x) = 4
+2⁴ = x
+x = <span class="ans">16</span></div>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(1)">← Trig Basics</button>
+      <button class="btn-nav btn-next" onclick="showTab(3)">Take the Quiz →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 3: Quiz -->
+  <div class="lesson-panel" id="panel-3">
+    <h2>📝 Pre-Calculus Quiz</h2>
+    <p style="margin-bottom:1.5rem">Test what you've learned! Select the best answer for each question.</p>
+
+    <div id="quiz-container">
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 1 of 5</div>
+        <div class="q-text">Given f(x) = 3x − 5, find f(4)</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q1')">2</button>
+          <button class="q-option" onclick="answer(this, true,  'q1')">7</button>
+          <button class="q-option" onclick="answer(this, false, 'q1')">12</button>
+          <button class="q-option" onclick="answer(this, false, 'q1')">17</button>
+        </div>
+        <div class="q-feedback" id="fb-q1"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 2 of 5</div>
+        <div class="q-text">What is the domain of f(x) = 1 / (x + 2)?</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q2')">All real numbers</button>
+          <button class="q-option" onclick="answer(this, false, 'q2')">x ≠ 0</button>
+          <button class="q-option" onclick="answer(this, true,  'q2')">x ≠ −2</button>
+          <button class="q-option" onclick="answer(this, false, 'q2')">x &gt; 0</button>
+        </div>
+        <div class="q-feedback" id="fb-q2"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 3 of 5</div>
+        <div class="q-text">In a right triangle, sin(θ) = 3/5. What is cos(θ)?</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q3')">3/4</button>
+          <button class="q-option" onclick="answer(this, true,  'q3')">4/5</button>
+          <button class="q-option" onclick="answer(this, false, 'q3')">5/3</button>
+          <button class="q-option" onclick="answer(this, false, 'q3')">5/4</button>
+        </div>
+        <div class="q-feedback" id="fb-q3"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 4 of 5</div>
+        <div class="q-text">Solve: 3ˣ = 81</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q4')">x = 3</button>
+          <button class="q-option" onclick="answer(this, true,  'q4')">x = 4</button>
+          <button class="q-option" onclick="answer(this, false, 'q4')">x = 27</button>
+          <button class="q-option" onclick="answer(this, false, 'q4')">x = 9</button>
+        </div>
+        <div class="q-feedback" id="fb-q4"></div>
+      </div>
+
+      <div class="quiz-question-block">
+        <div class="q-label">Question 5 of 5</div>
+        <div class="q-text">Solve: log₅(x) = 3</div>
+        <div class="quiz-options-grid">
+          <button class="q-option" onclick="answer(this, false, 'q5')">x = 15</button>
+          <button class="q-option" onclick="answer(this, false, 'q5')">x = 8</button>
+          <button class="q-option" onclick="answer(this, true,  'q5')">x = 125</button>
+          <button class="q-option" onclick="answer(this, false, 'q5')">x = 243</button>
+        </div>
+        <div class="q-feedback" id="fb-q5"></div>
+      </div>
+
+    </div>
+
+    <div class="quiz-result-box" id="quiz-result">
+      <div class="result-emoji" id="result-emoji">🏆</div>
+      <h3 id="result-title">Quiz Complete!</h3>
+      <p id="result-msg"></p>
+      <button class="btn-retry" onclick="retryQuiz()">Try Again</button>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(2)">← Lesson 3</button>
+      <button class="btn-nav btn-next" onclick="showTab(4)">Videos →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 4: Videos -->
+  <div class="lesson-panel" id="panel-4">
+    <h2>🎥 Pre-Calculus Video Tutorials</h2>
+    <p style="margin-bottom:1.5rem">Select a topic to watch a clear video explanation.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1.5rem;">
+      <button class="vid-btn active-vid" onclick="loadVid(this,'kvGsIo1TmsM','Introduction to Functions')">Introduction to Functions</button>
+      <button class="vid-btn" onclick="loadVid(this,'n7GPgAN-1gQ','Domain and Range')">Domain &amp; Range</button>
+      <button class="vid-btn" onclick="loadVid(this,'yBw67Fb31Cs','SOH CAH TOA')">SOH CAH TOA</button>
+      <button class="vid-btn" onclick="loadVid(this,'WvoAQNRpFQM','Unit Circle')">Unit Circle</button>
+      <button class="vid-btn" onclick="loadVid(this,'5hTWIDEo9cQ','Exponential Functions')">Exponential Functions</button>
+      <button class="vid-btn" onclick="loadVid(this,'Z5myJ8dg_rM','Logarithms Explained')">Logarithms Explained</button>
+    </div>
+
+    <div class="example-card">
+      <div class="example-header" id="vid-title">▶ Introduction to Functions</div>
+      <div class="example-body" style="padding:0.75rem;">
+        <iframe id="lesson-video" width="100%" height="340"
+          src="https://www.youtube.com/embed/kvGsIo1TmsM"
+          frameborder="0" allowfullscreen loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          style="border-radius:8px; display:block;">
+        </iframe>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(3)">← Quiz</button>
+      <button class="btn-nav btn-next" onclick="showTab(5)">Worksheets →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 5: Worksheets -->
+  <div class="lesson-panel" id="panel-5">
+    <h2>📄 Pre-Calculus Worksheets</h2>
+    <p style="margin-bottom:1.5rem">Practice problems for every topic covered in this lesson.</p>
+
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="example-card">
+        <div class="example-header">📝 Worksheet 1 — Functions &amp; Notation</div>
+        <div class="example-body" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <p style="margin:0 0 4px; font-weight:600;">Evaluating functions, domain, range</p>
+            <p style="margin:0; font-size:0.82rem; color:#6b7280;">20 problems</p>
+          </div>
+          <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:functions" target="_blank" rel="noopener" class="lesson-link-btn">Practice on Khan Academy →</a>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-header">📝 Worksheet 2 — Trigonometry</div>
+        <div class="example-body" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <p style="margin:0 0 4px; font-weight:600;">SOH CAH TOA, reference angles, unit circle</p>
+            <p style="margin:0; font-size:0.82rem; color:#6b7280;">15 problems</p>
+          </div>
+          <a href="https://www.khanacademy.org/math/trigonometry/trigonometry-right-triangles" target="_blank" rel="noopener" class="lesson-link-btn">Practice on Khan Academy →</a>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-header">📝 Worksheet 3 — Exponentials &amp; Logarithms</div>
+        <div class="example-body" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <p style="margin:0 0 4px; font-weight:600;">Solving exponential and log equations</p>
+            <p style="margin:0; font-size:0.82rem; color:#6b7280;">20 problems, mixed difficulty</p>
+          </div>
+          <a href="https://www.khanacademy.org/math/algebra2/x2ec2f6f830c9fb89:logs" target="_blank" rel="noopener" class="lesson-link-btn">Practice on Khan Academy →</a>
+        </div>
+      </div>
+
+      <div class="concept-box" style="margin-top:0.5rem;">
+        <div class="concept-label">💡 Tip</div>
+        <p>Khan Academy tracks your progress and gives instant feedback. Create a free account to save your scores!</p>
+      </div>
+    </div>
+
+    <div class="panel-nav">
+      <button class="btn-nav btn-prev" onclick="showTab(4)">← Videos</button>
+      <button class="btn-nav btn-finish" onclick="finishLesson()">✓ Complete Lesson</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>© 2026 SolveSpace · <a href="index.html">Home</a> · <a href="index.html#resources">All Resources</a></footer>
+
+<script>
+  // ── TAB NAVIGATION ──────────────────────────────
+  const tabCount = 6;
+  const completedTabs = new Set();
+
+  function showTab(i) {
+    document.querySelectorAll('.lesson-panel').forEach((p, idx) => { p.classList.toggle('active', idx === i); });
+    document.querySelectorAll('.tab-btn').forEach((b, idx) => { b.classList.toggle('active', idx === i); });
+    completedTabs.add(i);
+    updateLessonProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateLessonProgress() {
+    const pct = Math.round((completedTabs.size / tabCount) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+  }
+
+  // ── HINTS ───────────────────────────────────────
+  function toggleHint(btn) {
+    const content = btn.nextElementSibling;
+    const showing = content.style.display === 'block';
+    content.style.display = showing ? 'none' : 'block';
+    btn.textContent = showing ? '💡 Show Hint' : '💡 Hide Hint';
+    btn.style.borderRadius = showing ? '8px' : '8px 8px 0 0';
+  }
+
+  // ── VIDEO ───────────────────────────────────────
+  function loadVid(btn, id, title) {
+    document.getElementById('lesson-video').src = 'https://www.youtube.com/embed/' + id;
+    document.getElementById('vid-title').textContent = '▶ ' + title;
+    document.querySelectorAll('.vid-btn').forEach(b => b.classList.remove('active-vid'));
+    btn.classList.add('active-vid');
+  }
+
+  // ── QUIZ ────────────────────────────────────────
+  let quizScore = 0;
+  let quizAnswered = {};
+  const totalQ = 5;
+
+  function answer(btn, correct, qid) {
+    if (quizAnswered[qid]) return;
+    quizAnswered[qid] = true;
+
+    const block = btn.closest('.quiz-question-block');
+    block.querySelectorAll('.q-option').forEach(b => b.disabled = true);
+
+    if (correct) {
+      btn.classList.add('correct');
+      document.getElementById('fb-' + qid).innerHTML = '<span style="color:#15803d">✅ Correct!</span>';
+      quizScore++;
+    } else {
+      btn.classList.add('wrong');
+      block.querySelectorAll('.q-option').forEach(b => {
+        if (b.onclick.toString().includes('true')) b.classList.add('correct');
+      });
+      document.getElementById('fb-' + qid).innerHTML = '<span style="color:#dc2626">❌ Not quite — the correct answer is highlighted in green.</span>';
+    }
+
+    if (Object.keys(quizAnswered).length === totalQ) showResults();
+  }
+
+  function showResults() {
+    const pct = Math.round((quizScore / totalQ) * 100);
+    let emoji = '🏆', title = 'Outstanding!';
+    if (pct >= 80) { emoji = '🏆'; title = 'Excellent work!'; }
+    else if (pct >= 60) { emoji = '⭐'; title = 'Good effort!'; }
+    else { emoji = '💪'; title = 'Keep practicing!'; }
+
+    const msg = `You scored ${quizScore} out of ${totalQ} (${pct}%). ${pct >= 80 ? "You've mastered this topic!" : 'Review the lessons above and try again.'}`;
+
+    document.getElementById('result-emoji').textContent = emoji;
+    document.getElementById('result-title').textContent = title;
+    document.getElementById('result-msg').textContent = msg;
+    document.getElementById('quiz-result').style.display = 'block';
+
+    syncActivity('Pre-Calculus Lessons', pct, quizScore, totalQ);
+  }
+
+  function retryQuiz() {
+    quizScore = 0;
+    quizAnswered = {};
+    document.querySelectorAll('.q-option').forEach(b => { b.disabled = false; b.classList.remove('correct', 'wrong'); });
+    document.querySelectorAll('.q-feedback').forEach(f => f.innerHTML = '');
+    document.getElementById('quiz-result').style.display = 'none';
+  }
+
+  function finishLesson() {
+    syncActivity('Pre-Calculus Lessons', 100, null, null);
+    alert('🎉 Pre-Calculus lesson marked as complete! Great work.');
+    window.location.href = 'index.html#dashboard';
+  }
+
+  function syncActivity(activityName, pct, score, total) {
+    if (pct >= 60) {
+      const p = JSON.parse(localStorage.getItem('completed') || '[]');
+      if (!p.includes(activityName)) { p.push(activityName); localStorage.setItem('completed', JSON.stringify(p)); }
+    }
+    const session = JSON.parse(localStorage.getItem('ss-session') || '{}');
+    if (session.uid && typeof db !== 'undefined') {
+      const update = {};
+      if (pct >= 60) update.completed = firebase.firestore.FieldValue.arrayUnion(activityName);
+      if (score !== null) update['quizScores.precalc'] = score;
+      if (Object.keys(update).length) db.collection('users').doc(session.uid).update(update).catch(() => {});
+    }
+  }
+
+  // Mark first tab as visited on load
+  completedTabs.add(0);
+  updateLessonProgress();
+</script>
+
+<!-- Firebase (for Firestore sync) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+
+</body>
+</html>

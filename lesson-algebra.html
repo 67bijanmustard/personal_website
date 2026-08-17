@@ -481,14 +481,8 @@ Graph: ●────────&gt; (closed circle at −4)</div>
     document.getElementById('result-msg').textContent = msg;
     document.getElementById('quiz-result').style.display = 'block';
 
-    // Save to localStorage — mark Algebra Lessons complete if score >= 60%
-    if (pct >= 60) {
-      const prev = JSON.parse(localStorage.getItem('completed') || '[]');
-      if (!prev.includes('Algebra Lessons')) {
-        prev.push('Algebra Lessons');
-        localStorage.setItem('completed', JSON.stringify(prev));
-      }
-    }
+    // Save to localStorage and Firestore — mark complete if score >= 60%
+    syncActivity('Algebra Lessons', pct, quizScore, totalQ);
   }
 
   function retryQuiz() {
@@ -502,21 +496,43 @@ Graph: ●────────&gt; (closed circle at −4)</div>
     document.getElementById('quiz-result').style.display = 'none';
   }
 
-  // BUG FIX: redirect to #dashboard so progress bar is visible immediately
   function finishLesson() {
-    const prev = JSON.parse(localStorage.getItem('completed') || '[]');
-    if (!prev.includes('Algebra Lessons')) {
-      prev.push('Algebra Lessons');
-      localStorage.setItem('completed', JSON.stringify(prev));
-    }
+    syncActivity('Algebra Lessons', 100, null, null);
     alert('🎉 Algebra lesson marked as complete! Great work.');
     window.location.href = 'index.html#dashboard';
+  }
+
+  // Shared helper: save completion + quiz score to localStorage and Firestore
+  function syncActivity(activityName, pct, score, total) {
+    if (pct >= 60) {
+      const prev = JSON.parse(localStorage.getItem('completed') || '[]');
+      if (!prev.includes(activityName)) {
+        prev.push(activityName);
+        localStorage.setItem('completed', JSON.stringify(prev));
+      }
+    }
+    // Firestore sync
+    const session = JSON.parse(localStorage.getItem('ss-session') || '{}');
+    if (session.uid && typeof db !== 'undefined') {
+      const update = {};
+      if (pct >= 60) update.completed = firebase.firestore.FieldValue.arrayUnion(activityName);
+      if (score !== null) update['quizScores.algebra'] = score;
+      if (Object.keys(update).length) {
+        db.collection('users').doc(session.uid).update(update).catch(() => {});
+      }
+    }
   }
 
   // Mark first tab as visited on load
   completedTabs.add(0);
   updateLessonProgress();
 </script>
+
+<!-- Firebase (for Firestore sync) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
 
 </body>
 </html>

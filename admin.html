@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SolveSpace – Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #3a6cf4;
+      --bg: #f5f7ff;
+      --card: #ffffff;
+      --text: #1a1f36;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --red: #ef4444;
+      --green: #22c55e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+    nav {
+      background: linear-gradient(120deg, #1e3a8a, #3a6cf4);
+      padding: 14px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-size: 1.3rem; font-weight: 700; color: white; text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .nav-home  { color: rgba(255,255,255,0.85); font-size: 0.85rem; text-decoration: none; }
+    .nav-home:hover { color: white; }
+    .nav-badge {
+      background: rgba(239,68,68,0.25); color: white;
+      border: 1px solid rgba(239,68,68,0.5);
+      border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; font-weight: 600;
+    }
+    .signout-btn {
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+      color: white; border-radius: 6px; padding: 5px 12px;
+      font-family: 'Poppins', sans-serif; font-size: 0.78rem; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .signout-btn:hover { background: rgba(255,255,255,0.25); }
+
+    .page-hero {
+      background: linear-gradient(120deg, #1e3a8a, #3a6cf4);
+      color: white; text-align: center; padding: 2rem 1rem 3rem;
+    }
+    .page-hero h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .page-hero p  { font-size: 0.9rem; opacity: 0.85; }
+
+    main { flex: 1; max-width: 1100px; margin: -1.25rem auto 3rem; padding: 0 1.25rem; width: 100%; }
+
+    /* Tabs */
+    .admin-tabs {
+      display: flex; gap: 6px; margin-bottom: 1.5rem;
+      background: white; border-radius: 14px; padding: 6px;
+      box-shadow: 0 2px 12px rgba(58,108,244,0.08);
+    }
+    .admin-tab {
+      flex: 1; padding: 9px; border: none; border-radius: 9px;
+      font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; color: var(--muted); background: none; transition: all 0.2s;
+    }
+    .admin-tab.active { background: var(--blue); color: white; box-shadow: 0 2px 8px rgba(58,108,244,0.3); }
+    .admin-panel { display: none; }
+    .admin-panel.active { display: block; }
+
+    /* Cards */
+    .card {
+      background: var(--card); border-radius: 16px; padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(58,108,244,0.08); margin-bottom: 1.25rem;
+    }
+    .card h2 { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+
+    /* Stats row */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
+    .stat-card {
+      background: var(--card); border-radius: 14px; padding: 1.25rem;
+      box-shadow: 0 4px 16px rgba(58,108,244,0.07); text-align: center;
+    }
+    .stat-number { font-size: 2rem; font-weight: 700; color: var(--blue); }
+    .stat-label  { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+    /* Table */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .data-table th { text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--border); color: var(--muted); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .data-table td { padding: 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .data-table tr:last-child td { border: none; }
+    .data-table tr:hover td { background: #f8faff; }
+
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 0.72rem; font-weight: 600;
+    }
+    .badge-submitted { background: #dcfce7; color: #15803d; }
+    .badge-reviewed  { background: #dbeafe; color: #1d4ed8; }
+    .badge-returned  { background: #fef9c3; color: #854d0e; }
+    .badge-student   { background: #eff6ff; color: #3a6cf4; }
+    .badge-tutor     { background: #f5f3ff; color: #7c3aed; }
+    .badge-admin     { background: #fee2e2; color: #dc2626; }
+    .badge-confirmed { background: #dcfce7; color: #15803d; }
+    .badge-pending   { background: #fef9c3; color: #854d0e; }
+
+    .btn-action {
+      padding: 4px 12px; border-radius: 6px; border: none;
+      font-family: 'Poppins', sans-serif; font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .btn-review  { background: #eff6ff; color: #3a6cf4; }
+    .btn-review:hover  { background: #dbeafe; }
+    .btn-confirm { background: #dcfce7; color: #15803d; }
+    .btn-confirm:hover { background: #bbf7d0; }
+    .btn-cancel  { background: #fee2e2; color: #dc2626; }
+    .btn-cancel:hover  { background: #fecaca; }
+
+    /* Progress bar mini */
+    .mini-bar { height: 6px; background: #e5e7eb; border-radius: 10px; overflow: hidden; min-width: 80px; }
+    .mini-fill { height: 100%; background: linear-gradient(90deg, #3a6cf4, #8ac4ff); border-radius: 10px; }
+
+    /* Add session form */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .field { margin-bottom: 0; }
+    .field label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+    .field input, .field select {
+      width: 100%; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 9px;
+      font-family: 'Poppins', sans-serif; font-size: 0.85rem; color: var(--text);
+      background: #fafafa; outline: none; transition: border-color 0.2s;
+    }
+    .field input:focus, .field select:focus { border-color: var(--blue); background: white; }
+    .btn-primary {
+      padding: 10px 22px; background: linear-gradient(120deg, #3a6cf4, #5b8cf7);
+      color: white; font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 600;
+      border: none; border-radius: 9px; cursor: pointer;
+      box-shadow: 0 4px 12px rgba(58,108,244,0.3); transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+
+    /* Access denied */
+    #access-denied {
+      text-align: center; padding: 4rem 1rem;
+    }
+    #access-denied h2 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    #access-denied p  { color: var(--muted); }
+
+    .empty-state { color: var(--muted); font-size: 0.85rem; padding: 1.5rem 0; text-align: center; }
+
+    footer { text-align: center; padding: 1.5rem; font-size: 0.75rem; color: var(--muted); }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    @media (max-width: 700px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .form-grid  { grid-template-columns: 1fr; }
+      .admin-tabs { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">SolveSpace Admin</a>
+  <div class="nav-right">
+    <span class="nav-badge">Admin</span>
+    <a href="index.html" class="nav-home">← Home</a>
+    <button class="signout-btn" onclick="signOut()">Sign Out</button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>Admin Dashboard</h1>
+  <p id="admin-welcome">Manage students, submissions, and tutoring sessions</p>
+</div>
+
+<main>
+
+  <!-- Access denied state -->
+  <div id="access-denied" style="display:none;">
+    <div style="font-size:3rem; margin-bottom:1rem;">🔒</div>
+    <h2>Access Denied</h2>
+    <p>This page is only accessible to admins and tutors.</p>
+    <p style="margin-top:1rem;"><a href="index.html" style="color:#3a6cf4;">← Return to Home</a></p>
+  </div>
+
+  <!-- Loading state -->
+  <div id="loading-state" style="text-align:center; padding:3rem;">
+    <p style="color:#6b7280;">Verifying access…</p>
+  </div>
+
+  <!-- Admin content (shown once access is verified) -->
+  <div id="admin-content" style="display:none;">
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-number" id="stat-students">—</div>
+        <div class="stat-label">Registered Students</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-submissions">—</div>
+        <div class="stat-label">Homework Submissions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-bookings">—</div>
+        <div class="stat-label">Session Bookings</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-sessions">—</div>
+        <div class="stat-label">Tutoring Sessions</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="showPanel(0)">📤 Submissions</button>
+      <button class="admin-tab" onclick="showPanel(1)">👥 Students</button>
+      <button class="admin-tab" onclick="showPanel(2)">📅 Sessions</button>
+      <button class="admin-tab" onclick="showPanel(3)">🗓 Bookings</button>
+    </div>
+
+    <!-- PANEL 0: Submissions -->
+    <div class="admin-panel active" id="panel-0">
+      <div class="card">
+        <h2>📤 Homework Submissions</h2>
+        <table class="data-table" id="submissions-table">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Assignment</th>
+              <th>Subject</th>
+              <th>Date</th>
+              <th>Files</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="submissions-body">
+            <tr><td colspan="7" class="empty-state">Loading submissions…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PANEL 1: Students -->
+    <div class="admin-panel" id="panel-1">
+      <div class="card">
+        <h2>👥 Registered Students</h2>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Progress</th>
+              <th>Quiz Scores</th>
+              <th>Joined</th>
+            </tr>
+          </thead>
+          <tbody id="students-body">
+            <tr><td colspan="6" class="empty-state">Loading students…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PANEL 2: Sessions -->
+    <div class="admin-panel" id="panel-2">
+      <div class="card">
+        <h2>➕ Add Tutoring Session</h2>
+        <div class="form-grid">
+          <div class="field">
+            <label>Subject</label>
+            <select id="new-subject">
+              <option value="">Select…</option>
+              <option>Algebra</option>
+              <option>Geometry</option>
+              <option>Pre-Calculus</option>
+              <option>Statistics</option>
+              <option>Calculus</option>
+              <option>General Math Help</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Date (YYYY-MM-DD)</label>
+            <input type="date" id="new-date">
+          </div>
+          <div class="field">
+            <label>Time (e.g. 3:00–4:00 PM)</label>
+            <input type="text" id="new-time" placeholder="3:00–4:00 PM">
+          </div>
+          <div class="field">
+            <label>Tutor Name</label>
+            <input type="text" id="new-tutor" placeholder="Tutor's name">
+          </div>
+          <div class="field">
+            <label>Capacity</label>
+            <input type="number" id="new-capacity" value="10" min="1" max="50">
+          </div>
+        </div>
+        <button class="btn-primary" onclick="addSession()">Add Session</button>
+        <p id="session-msg" style="font-size:0.8rem; margin-top:0.75rem; color:#16a34a;"></p>
+      </div>
+
+      <div class="card">
+        <h2>📅 Current Sessions</h2>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Tutor</th>
+              <th>Enrolled</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="sessions-body">
+            <tr><td colspan="6" class="empty-state">Loading sessions…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PANEL 3: Bookings -->
+    <div class="admin-panel" id="panel-3">
+      <div class="card">
+        <h2>🗓 Session Bookings</h2>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Subject</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="bookings-body">
+            <tr><td colspan="6" class="empty-state">Loading bookings…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /admin-content -->
+</main>
+
+<footer>© 2026 SolveSpace · <a href="index.html">Home</a></footer>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+
+<script>
+  function escHtml(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // ── TAB NAV ───────────────────────────────────────
+  function showPanel(n) {
+    document.querySelectorAll('.admin-panel').forEach(function(p, i) { p.classList.toggle('active', i === n); });
+    document.querySelectorAll('.admin-tab').forEach(function(t, i) { t.classList.toggle('active', i === n); });
+  }
+
+  // ── AUTH + ACCESS CHECK ───────────────────────────
+  auth.onAuthStateChanged(function(user) {
+    if (!user) { window.location.href = 'login.html'; return; }
+
+    db.collection('users').doc(user.uid).get().then(function(snap) {
+      var role = snap.exists ? (snap.data().role || 'student') : 'student';
+      if (role !== 'admin' && role !== 'tutor') {
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('access-denied').style.display = '';
+        return;
+      }
+
+      var name = user.displayName || user.email.split('@')[0];
+      document.getElementById('admin-welcome').textContent = 'Welcome, ' + name + ' · ' + role.charAt(0).toUpperCase() + role.slice(1);
+      document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('admin-content').style.display = '';
+
+      loadAll();
+    }).catch(function() {
+      document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('access-denied').style.display = '';
+    });
+  });
+
+  function signOut() {
+    firebase.auth().signOut().catch(function(){});
+    localStorage.removeItem('ss-session');
+    window.location.href = 'login.html';
+  }
+
+  // ── LOAD ALL DATA ─────────────────────────────────
+  function loadAll() {
+    loadSubmissions();
+    loadStudents();
+    loadSessions();
+    loadBookings();
+  }
+
+  // ── SUBMISSIONS ───────────────────────────────────
+  function loadSubmissions() {
+    db.collection('submissions').orderBy('submittedAt', 'desc').limit(50).get().then(function(snap) {
+      document.getElementById('stat-submissions').textContent = snap.size;
+      var tbody = document.getElementById('submissions-body');
+      if (snap.empty) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No submissions yet.</td></tr>'; return; }
+      tbody.innerHTML = snap.docs.map(function(doc) {
+        var d   = doc.data();
+        var date = d.submittedAt ? d.submittedAt.toDate().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—';
+        var fileLinks = (d.downloadUrls || []).map(function(url, i) {
+          var fname = d.fileNames && d.fileNames[i] ? d.fileNames[i] : 'File ' + (i+1);
+          return '<a href="' + url + '" target="_blank" style="color:#3a6cf4; font-size:0.78rem; display:block;">' + escHtml(fname) + '</a>';
+        }).join('');
+        var statusClass = 'badge-' + (d.status || 'submitted');
+        var statusLabel = (d.status || 'submitted').charAt(0).toUpperCase() + (d.status || 'submitted').slice(1);
+        return '<tr>' +
+          '<td>' + escHtml(d.userName) + '<br><span style="font-size:0.72rem;color:#6b7280;">' + escHtml(d.userEmail) + '</span></td>' +
+          '<td>' + escHtml(d.assignmentName) + (d.notes ? '<br><span style="font-size:0.72rem;color:#6b7280;">' + escHtml(d.notes.slice(0,60)) + (d.notes.length > 60 ? '…' : '') + '</span>' : '') + '</td>' +
+          '<td>' + escHtml(d.subject) + '</td>' +
+          '<td>' + date + '</td>' +
+          '<td>' + (fileLinks || '—') + '</td>' +
+          '<td><span class="badge ' + statusClass + '">' + statusLabel + '</span></td>' +
+          '<td>' +
+            (d.status !== 'reviewed' ? '<button class="btn-action btn-review" onclick="updateStatus(\'' + doc.id + '\', \'reviewed\')">Mark Reviewed</button>' : '') +
+            (d.status !== 'returned' ? ' <button class="btn-action btn-cancel" onclick="updateStatus(\'' + doc.id + '\', \'returned\')">Return</button>' : '') +
+          '</td>' +
+        '</tr>';
+      }).join('');
+    }).catch(function(e) {
+      document.getElementById('submissions-body').innerHTML = '<tr><td colspan="7" class="empty-state">Error loading submissions.</td></tr>';
+    });
+  }
+
+  function updateStatus(docId, status) {
+    db.collection('submissions').doc(docId).update({ status: status }).then(function() { loadSubmissions(); }).catch(function() {});
+  }
+
+  // ── STUDENTS ──────────────────────────────────────
+  function loadStudents() {
+    db.collection('users').orderBy('createdAt', 'desc').limit(100).get().then(function(snap) {
+      document.getElementById('stat-students').textContent = snap.size;
+      var tbody = document.getElementById('students-body');
+      if (snap.empty) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No students yet.</td></tr>'; return; }
+      tbody.innerHTML = snap.docs.map(function(doc) {
+        var d = doc.data();
+        var completed   = (d.completed || []).length;
+        var total       = 4;
+        var pct         = Math.round((completed / total) * 100);
+        var quizScores  = d.quizScores || {};
+        var scoreStr    = Object.keys(quizScores).map(function(k) {
+          return k.charAt(0).toUpperCase() + k.slice(1) + ': ' + quizScores[k] + '/5';
+        }).join(', ') || '—';
+        var date = d.createdAt ? d.createdAt.toDate().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '—';
+        var roleClass = 'badge-' + (d.role || 'student');
+        return '<tr>' +
+          '<td>' + escHtml(d.name || '—') + '</td>' +
+          '<td>' + escHtml(d.email || '—') + '</td>' +
+          '<td><span class="badge ' + roleClass + '">' + escHtml(d.role || 'student') + '</span></td>' +
+          '<td>' +
+            '<div class="mini-bar"><div class="mini-fill" style="width:' + pct + '%;"></div></div>' +
+            '<span style="font-size:0.72rem;color:#6b7280;">' + pct + '% (' + completed + '/' + total + ')</span>' +
+          '</td>' +
+          '<td style="font-size:0.78rem; color:#6b7280;">' + escHtml(scoreStr) + '</td>' +
+          '<td style="font-size:0.78rem;">' + date + '</td>' +
+        '</tr>';
+      }).join('');
+    }).catch(function() {
+      document.getElementById('students-body').innerHTML = '<tr><td colspan="6" class="empty-state">Error loading students.</td></tr>';
+    });
+  }
+
+  // ── SESSIONS ──────────────────────────────────────
+  function loadSessions() {
+    db.collection('sessions').orderBy('dateStr', 'asc').limit(50).get().then(function(snap) {
+      document.getElementById('stat-sessions').textContent = snap.size;
+      var tbody = document.getElementById('sessions-body');
+      if (snap.empty) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No sessions yet. Add one above.</td></tr>'; return; }
+      tbody.innerHTML = snap.docs.map(function(doc) {
+        var d        = doc.data();
+        var enrolled = (d.enrolled || []).length;
+        var capacity = d.capacity || 10;
+        return '<tr>' +
+          '<td>' + escHtml(d.subject) + '</td>' +
+          '<td>' + escHtml(d.dateStr) + '</td>' +
+          '<td>' + escHtml(d.time) + '</td>' +
+          '<td>' + escHtml(d.tutorName || '—') + '</td>' +
+          '<td>' + enrolled + ' / ' + capacity + '</td>' +
+          '<td><button class="btn-action btn-cancel" onclick="deleteSession(\'' + doc.id + '\')">Delete</button></td>' +
+        '</tr>';
+      }).join('');
+    }).catch(function() {});
+  }
+
+  async function addSession() {
+    var subject  = document.getElementById('new-subject').value;
+    var dateStr  = document.getElementById('new-date').value;
+    var time     = document.getElementById('new-time').value.trim();
+    var tutor    = document.getElementById('new-tutor').value.trim();
+    var capacity = parseInt(document.getElementById('new-capacity').value) || 10;
+    var msg      = document.getElementById('session-msg');
+
+    if (!subject || !dateStr || !time) { msg.style.color = '#dc2626'; msg.textContent = '⚠️ Please fill in subject, date, and time.'; return; }
+
+    try {
+      await db.collection('sessions').add({
+        subject:    subject,
+        dateStr:    dateStr,
+        time:       time,
+        tutorName:  tutor,
+        capacity:   capacity,
+        enrolled:   [],
+        createdAt:  firebase.firestore.FieldValue.serverTimestamp()
+      });
+      msg.style.color = '#16a34a';
+      msg.textContent = '✅ Session added!';
+      document.getElementById('new-subject').value = '';
+      document.getElementById('new-date').value = '';
+      document.getElementById('new-time').value = '';
+      document.getElementById('new-tutor').value = '';
+      loadSessions();
+    } catch (e) {
+      msg.style.color = '#dc2626';
+      msg.textContent = '❌ Error: ' + e.message;
+    }
+  }
+
+  function deleteSession(id) {
+    if (!confirm('Delete this session? Students who booked it will not be automatically notified.')) return;
+    db.collection('sessions').doc(id).delete().then(function() { loadSessions(); }).catch(function() {});
+  }
+
+  // ── BOOKINGS ──────────────────────────────────────
+  function loadBookings() {
+    db.collection('bookings').orderBy('bookedAt', 'desc').limit(50).get().then(function(snap) {
+      document.getElementById('stat-bookings').textContent = snap.size;
+      var tbody = document.getElementById('bookings-body');
+      if (snap.empty) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No bookings yet.</td></tr>'; return; }
+      tbody.innerHTML = snap.docs.map(function(doc) {
+        var d    = doc.data();
+        var date = d.dateStr || '—';
+        var statusClass = d.status === 'confirmed' ? 'badge-confirmed' : 'badge-pending';
+        return '<tr>' +
+          '<td>' + escHtml(d.userName) + '<br><span style="font-size:0.72rem;color:#6b7280;">' + escHtml(d.userEmail) + '</span></td>' +
+          '<td>' + escHtml(d.subject) + '</td>' +
+          '<td>' + escHtml(date) + '</td>' +
+          '<td>' + escHtml(d.time || '—') + '</td>' +
+          '<td><span class="badge ' + statusClass + '">' + escHtml(d.status || 'pending') + '</span></td>' +
+          '<td>' +
+            (d.status !== 'confirmed' ? '<button class="btn-action btn-confirm" onclick="updateBooking(\'' + doc.id + '\', \'confirmed\')">Confirm</button> ' : '') +
+            '<button class="btn-action btn-cancel" onclick="updateBooking(\'' + doc.id + '\', \'cancelled\')">Cancel</button>' +
+          '</td>' +
+        '</tr>';
+      }).join('');
+    }).catch(function() {
+      document.getElementById('bookings-body').innerHTML = '<tr><td colspan="6" class="empty-state">Error loading bookings.</td></tr>';
+    });
+  }
+
+  function updateBooking(id, status) {
+    db.collection('bookings').doc(id).update({ status: status }).then(function() { loadBookings(); }).catch(function() {});
+  }
+</script>
+
+</body>
+</html>

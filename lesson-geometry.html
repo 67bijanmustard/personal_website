@@ -463,10 +463,7 @@ A = 3.14 × 49 = <span class="ans">153.86 cm²</span></div>
       document.getElementById('result-title').textContent = pct >= 80 ? 'Excellent work!' : pct >= 60 ? 'Good effort!' : 'Keep practicing!';
       document.getElementById('result-msg').textContent = `You scored ${quizScore} out of ${totalQ} (${pct}%).`;
       document.getElementById('quiz-result').style.display = 'block';
-      if (pct >= 60) {
-        const p = JSON.parse(localStorage.getItem('completed') || '[]');
-        if (!p.includes('Geometry Lessons')) { p.push('Geometry Lessons'); localStorage.setItem('completed', JSON.stringify(p)); }
-      }
+      syncActivity('Geometry Lessons', pct, quizScore, totalQ);
     }
   }
 
@@ -477,16 +474,35 @@ A = 3.14 × 49 = <span class="ans">153.86 cm²</span></div>
     document.getElementById('quiz-result').style.display = 'none';
   }
 
-  // BUG FIX: redirect to #dashboard so progress updates are visible immediately
   function finishLesson() {
-    const p = JSON.parse(localStorage.getItem('completed') || '[]');
-    if (!p.includes('Geometry Lessons')) { p.push('Geometry Lessons'); localStorage.setItem('completed', JSON.stringify(p)); }
+    syncActivity('Geometry Lessons', 100, null, null);
     alert('🎉 Geometry lesson complete! Great work.');
     window.location.href = 'index.html#dashboard';
+  }
+
+  function syncActivity(activityName, pct, score, total) {
+    if (pct >= 60) {
+      const p = JSON.parse(localStorage.getItem('completed') || '[]');
+      if (!p.includes(activityName)) { p.push(activityName); localStorage.setItem('completed', JSON.stringify(p)); }
+    }
+    const session = JSON.parse(localStorage.getItem('ss-session') || '{}');
+    if (session.uid && typeof db !== 'undefined') {
+      const update = {};
+      if (pct >= 60) update.completed = firebase.firestore.FieldValue.arrayUnion(activityName);
+      if (score !== null) update['quizScores.geometry'] = score;
+      if (Object.keys(update).length) db.collection('users').doc(session.uid).update(update).catch(() => {});
+    }
   }
 
   completedTabs.add(0);
   document.getElementById('progress-fill').style.width = Math.round((1 / tabCount) * 100) + '%';
 </script>
+
+<!-- Firebase (for Firestore sync) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+
 </body>
 </html>

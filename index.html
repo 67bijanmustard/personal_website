@@ -21,6 +21,8 @@
       <li><a href="#resources">Resources</a></li>
       <li><a href="#team">Team</a></li>
       <li><a href="upload.html">Submit Homework</a></li>
+      <!-- Admin link — shown only when role=admin -->
+      <li id="nav-admin-item" style="display:none;"><a href="admin.html" class="nav-btn" style="background:rgba(239,68,68,0.2); border-color:rgba(239,68,68,0.5);">Admin</a></li>
       <!-- Auth item — swapped by JS based on session -->
       <li id="nav-auth-item"><a href="login.html" class="nav-btn">Sign In</a></li>
       <li><button id="theme-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button></li>
@@ -89,6 +91,17 @@
     <div class="session-info card" id="sessionInfo">
       <p>Select a date to view tutoring sessions.</p>
     </div>
+
+    <!-- Session booking panel (shown when a session date is clicked) -->
+    <div id="booking-panel" style="display:none; margin-top:1.25rem;">
+      <div style="background:#fff; border-radius:14px; padding:1.5rem; box-shadow:0 4px 20px rgba(58,108,244,0.1); max-width:520px; margin:0 auto;">
+        <h3 id="booking-session-title" style="margin-bottom:0.5rem; font-size:1rem;"></h3>
+        <p id="booking-session-detail" style="color:#6b7280; font-size:0.85rem; margin-bottom:1rem;"></p>
+        <div id="booking-enrolled-count" style="font-size:0.82rem; color:#374151; margin-bottom:1rem;"></div>
+        <button id="booking-btn" class="lesson-link-btn" onclick="bookSession()" style="font-size:0.9rem;">Book This Session</button>
+        <p id="booking-msg" style="font-size:0.8rem; margin-top:0.75rem; color:#16a34a;"></p>
+      </div>
+    </div>
   </section>
 
   <!-- Dashboard -->
@@ -117,9 +130,10 @@
         </ul>
       </div>
       <div class="dashboard-card">
-        <h3>📅 Upcoming Tutoring</h3>
-        <p>Wednesday — Algebra Help</p>
-        <p>Friday — Geometry Study Group</p>
+        <h3>📅 My Sessions</h3>
+        <div id="my-sessions-list">
+          <p style="color:#6b7280; font-size:0.85rem;">No booked sessions yet.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -143,6 +157,11 @@
         <h3>📊 Statistics Lessons</h3>
         <p>Mean, median, mode, range, and probability — with worked examples, quizzes, videos, and worksheets.</p>
         <a href="lesson-statistics.html" class="lesson-link-btn">Start Lesson</a>
+      </div>
+      <div class="resource-card">
+        <h3>📉 Pre-Calculus Lessons</h3>
+        <p>Functions, trigonometry, exponential and logarithmic equations — bridge the gap before Calculus.</p>
+        <a href="lesson-precalc.html" class="lesson-link-btn">Start Lesson</a>
       </div>
     </div>
   </section>
@@ -231,7 +250,6 @@
     var cur    = 0;
     var startX = 0;
 
-    // Build dots
     for (var i = 0; i < total; i++) {
       var d = document.createElement('button');
       d.style.cssText = 'width:8px;height:8px;border-radius:50%;border:none;padding:0;cursor:pointer;transition:all 0.2s;background:#d1d5db;';
@@ -255,16 +273,13 @@
       });
     }
 
-    // Dot clicks
     Array.from(dotsEl.children).forEach(function(d) {
       d.addEventListener('click', function() { go(parseInt(this.getAttribute('data-i'))); });
     });
 
-    // Arrow clicks
     prev.addEventListener('click', function() { go(cur - 1); });
     next.addEventListener('click', function() { go(cur + 1); });
 
-    // Touch swipe
     var outer = document.getElementById('rv-outer');
     outer.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, {passive: true});
     outer.addEventListener('touchend',   function(e) {
@@ -272,7 +287,6 @@
       if (Math.abs(dx) > 40) go(dx < 0 ? cur + 1 : cur - 1);
     });
 
-    // Mouse drag
     outer.addEventListener('mousedown', function(e) { startX = e.clientX; });
     outer.addEventListener('mouseup',   function(e) {
       var dx = e.clientX - startX;
@@ -336,67 +350,208 @@
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
 
   <script>
-    // ── FIREBASE CONFIG ───────────────────────────────────────
-    const firebaseConfig = {
-      apiKey:            "AIzaSyBCb0Cklt60pdxBE7oLuyuGlYdJoK4iqSk",
-      authDomain:        "dv-peer-tutoring.firebaseapp.com",
-      projectId:         "dv-peer-tutoring",
-      storageBucket:     "dv-peer-tutoring.firebasestorage.app",
-      messagingSenderId: "213126769176",
-      appId:             "1:213126769176:web:a89c92a8c1f80096cc316d"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
     // ── SESSION NAV ───────────────────────────────────────────
-    function updateNav(name, email) {
-      const authItem = document.getElementById('nav-auth-item');
-      const displayName = name || email || 'Student';
-      const initials = displayName.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+    function updateNav(user, role) {
+      var authItem  = document.getElementById('nav-auth-item');
+      var adminItem = document.getElementById('nav-admin-item');
+      var displayName = (user.displayName || user.email || 'Student');
+      var initials = displayName.split(' ').map(function(w) { return w[0]; }).join('').toUpperCase().slice(0,2);
 
-      authItem.innerHTML = `
-        <div style="display:flex; align-items:center; gap:8px;">
-          <div style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:white;">${initials}</div>
-          <span style="color:rgba(255,255,255,0.95); font-size:0.85rem; font-weight:600;">${displayName.split(' ')[0]}</span>
-          <button onclick="signOut()" style="background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4); color:white; border-radius:6px; padding:4px 10px; font-size:0.78rem; cursor:pointer; font-family:inherit; transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.35)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">Sign Out</button>
-        </div>
-      `;
+      authItem.innerHTML =
+        '<div style="display:flex; align-items:center; gap:8px;">' +
+          '<div style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:white;">' + initials + '</div>' +
+          '<span style="color:rgba(255,255,255,0.95); font-size:0.85rem; font-weight:600;">' + displayName.split(' ')[0] + '</span>' +
+          '<button onclick="signOut()" style="background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4); color:white; border-radius:6px; padding:4px 10px; font-size:0.78rem; cursor:pointer; font-family:inherit; transition:background 0.2s;" onmouseover="this.style.background=\'rgba(255,255,255,0.35)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.2)\'">Sign Out</button>' +
+        '</div>';
 
-      // Personalise dashboard subtitle
-      const sub = document.getElementById('dashboard-subtitle');
-      if (sub) sub.textContent = `Welcome back, ${displayName.split(' ')[0]}! Here's your progress.`;
+      if (role === 'admin' || role === 'tutor') adminItem.style.display = '';
+
+      var sub = document.getElementById('dashboard-subtitle');
+      if (sub) sub.textContent = 'Welcome back, ' + displayName.split(' ')[0] + '! Here\'s your progress.';
     }
 
-    // Check Firebase auth state first
+    // ── SHOW CACHED SESSION IMMEDIATELY ───────────────────────
+    // Firebase's own auth check is async and can be slow (or, when the
+    // page is opened via file://, never fire at all because IndexedDB
+    // persistence is blocked). Render from the last known session right
+    // away so the nav doesn't get stuck on "Sign In" after a real login;
+    // onAuthStateChanged below still runs and reconciles once it resolves.
+    (function () {
+      var cached = JSON.parse(localStorage.getItem('ss-session') || '{}');
+      if (cached.loggedIn && cached.username) {
+        updateNav({ displayName: cached.username, email: cached.email }, cached.role || 'student');
+      }
+    })();
+
+    // ── FIREBASE AUTH STATE ──────────────────────────────────
     auth.onAuthStateChanged(function(user) {
       if (user) {
-        updateNav(user.displayName, user.email);
-        localStorage.setItem('ss-session', JSON.stringify({
-          loggedIn: true,
-          username: user.displayName || user.email.split('@')[0],
-          email: user.email
-        }));
+        // Load role from Firestore, then update nav + progress
+        db.collection('users').doc(user.uid).get().then(function(snap) {
+          var role = snap.exists ? (snap.data().role || 'student') : 'student';
+          localStorage.setItem('ss-session', JSON.stringify({
+            loggedIn: true,
+            uid:      user.uid,
+            username: user.displayName || user.email.split('@')[0],
+            email:    user.email,
+            role:     role
+          }));
+          // Redirect admins who landed here from login
+          if (role === 'admin' && window.location.hash === '#dashboard') {
+            window.location.href = 'admin.html';
+            return;
+          }
+          updateNav(user, role);
+          loadProgressFromFirestore(user.uid);
+          loadMySessions(user.uid);
+        }).catch(function() {
+          updateNav(user, 'student');
+          loadProgressFromFirestore(user.uid);
+        });
       } else {
-        const session = JSON.parse(localStorage.getItem('ss-session') || '{}');
+        var session = JSON.parse(localStorage.getItem('ss-session') || '{}');
         if (session.loggedIn && session.username) {
-          updateNav(session.username, session.email);
+          updateNav({ displayName: session.username, email: session.email }, session.role || 'student');
         }
       }
     });
-  </script>
 
-  <script>
-    // ── SIGN OUT — must be global so onclick can find it ─────
+    // ── PROGRESS FROM FIRESTORE ──────────────────────────────
+    function loadProgressFromFirestore(uid) {
+      db.collection('users').doc(uid).get().then(function(snap) {
+        if (!snap.exists) return;
+        var data = snap.data();
+        var completed = data.completed || [];
+        // Sync to localStorage for script.js to use
+        localStorage.setItem('completed', JSON.stringify(completed));
+        renderCompleted();
+      }).catch(function() {
+        renderCompleted(); // fall back to localStorage
+      });
+    }
+
+    // ── MY BOOKED SESSIONS ────────────────────────────────────
+    function loadMySessions(uid) {
+      db.collection('bookings')
+        .where('userId', '==', uid)
+        .orderBy('bookedAt', 'desc')
+        .limit(5)
+        .get()
+        .then(function(snap) {
+          var el = document.getElementById('my-sessions-list');
+          if (!el) return;
+          if (snap.empty) {
+            el.innerHTML = '<p style="color:#6b7280; font-size:0.85rem;">No booked sessions yet. <a href="#schedule" style="color:#3a6cf4;">Browse the schedule →</a></p>';
+            return;
+          }
+          el.innerHTML = snap.docs.map(function(doc) {
+            var d = doc.data();
+            return '<div style="font-size:0.85rem; padding:6px 0; border-bottom:1px solid #f3f4f6;">' +
+              '<strong>' + escHtml(d.subject) + '</strong> · ' + escHtml(d.dateStr || '') +
+              '<span style="margin-left:8px; font-size:0.72rem; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:10px;">' + escHtml(d.status || 'Confirmed') + '</span>' +
+            '</div>';
+          }).join('');
+        }).catch(function() {});
+    }
+
+    function escHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // ── SIGN OUT ─────────────────────────────────────────────
     function signOut() {
-      if (typeof firebase !== 'undefined') {
-        firebase.auth().signOut().catch(function(){});
-      }
+      if (typeof firebase !== 'undefined') firebase.auth().signOut().catch(function(){});
       localStorage.removeItem('ss-session');
       window.location.href = 'login.html';
     }
   </script>
+
+  <!-- Session Booking Logic (used by script.js calendar) -->
+  <script>
+    var selectedSessionId = null;
+    var selectedSessionData = null;
+
+    function showBookingPanel(sessionId, sessionData) {
+      selectedSessionId   = sessionId;
+      selectedSessionData = sessionData;
+      var panel = document.getElementById('booking-panel');
+      document.getElementById('booking-session-title').textContent = sessionData.subject + ' — ' + sessionData.dateStr;
+      document.getElementById('booking-session-detail').textContent = sessionData.time + (sessionData.tutorName ? ' · Tutor: ' + sessionData.tutorName : '');
+      var enrolled = sessionData.enrolled ? sessionData.enrolled.length : 0;
+      var capacity = sessionData.capacity || 10;
+      document.getElementById('booking-enrolled-count').textContent = enrolled + ' / ' + capacity + ' spots taken';
+      document.getElementById('booking-msg').textContent = '';
+
+      var session = JSON.parse(localStorage.getItem('ss-session') || '{}');
+      var btn = document.getElementById('booking-btn');
+      if (!session.loggedIn) {
+        btn.textContent = 'Sign In to Book';
+        btn.onclick = function() { window.location.href = 'login.html'; };
+      } else if (sessionData.enrolled && sessionData.enrolled.includes(session.uid)) {
+        btn.textContent = '✓ Already Booked';
+        btn.disabled = true;
+      } else if (enrolled >= capacity) {
+        btn.textContent = 'Session Full';
+        btn.disabled = true;
+      } else {
+        btn.textContent = 'Book This Session';
+        btn.disabled = false;
+        btn.onclick = bookSession;
+      }
+
+      panel.style.display = '';
+    }
+
+    async function bookSession() {
+      var session = JSON.parse(localStorage.getItem('ss-session') || '{}');
+      if (!session.loggedIn || !session.uid) {
+        window.location.href = 'login.html';
+        return;
+      }
+      if (!selectedSessionId || !selectedSessionData) return;
+
+      var btn = document.getElementById('booking-btn');
+      btn.disabled = true;
+      btn.textContent = 'Booking…';
+
+      try {
+        // Add booking document
+        await db.collection('bookings').add({
+          userId:    session.uid,
+          userName:  session.username,
+          userEmail: session.email,
+          sessionId: selectedSessionId,
+          subject:   selectedSessionData.subject,
+          dateStr:   selectedSessionData.dateStr,
+          time:      selectedSessionData.time,
+          status:    'confirmed',
+          bookedAt:  firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        // Add user to session's enrolled array
+        await db.collection('sessions').doc(selectedSessionId).update({
+          enrolled: firebase.firestore.FieldValue.arrayUnion(session.uid)
+        });
+
+        document.getElementById('booking-msg').textContent = '✅ Session booked! Check your dashboard.';
+        btn.textContent = '✓ Booked';
+        loadMySessions(session.uid);
+      } catch (err) {
+        console.error('Booking error:', err);
+        document.getElementById('booking-msg').textContent = '❌ Booking failed. Please try again.';
+        btn.disabled = false;
+        btn.textContent = 'Book This Session';
+      }
+    }
+  </script>
+
 </body>
 </html>

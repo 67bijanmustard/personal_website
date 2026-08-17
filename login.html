@@ -72,13 +72,13 @@
 
     .field { margin-bottom: 1rem; }
     .field label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-    .field input {
+    .field input, .field select {
       width: 100%; padding: 11px 14px;
       border: 1.5px solid var(--border); border-radius: 10px;
       font-family: 'Poppins', sans-serif; font-size: 0.9rem; color: var(--text);
       background: #fafafa; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .field input:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px rgba(58,108,244,0.12); }
+    .field input:focus, .field select:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px rgba(58,108,244,0.12); }
 
     .error-msg   { font-size: 0.8rem; color: var(--error); min-height: 1.2em; margin-bottom: 0.75rem; }
     .success-msg { font-size: 0.8rem; color: var(--green); min-height: 1.2em; margin-bottom: 0.75rem; }
@@ -162,8 +162,15 @@
         <input type="text" id="su-name" placeholder="Your name" autocomplete="name">
       </div>
       <div class="field">
-        <label for="su-email">Email</label>
-        <input type="email" id="su-email" placeholder="you@example.com" autocomplete="email">
+        <label for="su-email">School Email</label>
+        <input type="email" id="su-email" placeholder="you@school.edu" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="su-role">I am a…</label>
+        <select id="su-role">
+          <option value="student">Student</option>
+          <option value="tutor">Peer Tutor</option>
+        </select>
       </div>
       <div class="field">
         <label for="su-password">Password</label>
@@ -187,62 +194,58 @@
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
 
 <script>
-  // ── FIREBASE SETUP ────────────────────────────────────────
-  const firebaseConfig = {
-    apiKey:            "AIzaSyBCb0Cklt60pdxBE7oLuyuGlYdJoK4iqSk",
-    authDomain:        "dv-peer-tutoring.firebaseapp.com",
-    projectId:         "dv-peer-tutoring",
-    storageBucket:     "dv-peer-tutoring.firebasestorage.app",
-    messagingSenderId: "213126769176",
-    appId:             "1:213126769176:web:a89c92a8c1f80096cc316d"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-  // Redirect if already logged in
-  auth.onAuthStateChanged(function(user) {
-    if (user) {
-      saveSessionAndRedirect(user);
-    }
-  });
+  // Guard: only redirect once, prevents onAuthStateChanged from firing on
+  // a user who is already signed in and just visiting the login page.
+  var redirecting = false;
 
   // ── HELPERS ───────────────────────────────────────────────
   function saveSessionAndRedirect(user) {
+    if (redirecting) return;
+    redirecting = true;
     localStorage.setItem('ss-session', JSON.stringify({
       loggedIn: true,
+      uid:      user.uid,
       username: user.displayName || user.email.split('@')[0],
-      email: user.email
+      email:    user.email,
+      role:     'student'
     }));
     window.location.href = 'index.html#dashboard';
   }
 
   function friendlyError(code) {
-    const map = {
-      'auth/user-not-found':       '❌ No account found with that email.',
-      'auth/wrong-password':       '❌ Incorrect password. Please try again.',
-      'auth/invalid-credential':   '❌ Incorrect email or password.',
-      'auth/invalid-email':        '❌ Please enter a valid email address.',
-      'auth/email-already-in-use': '❌ An account with that email already exists.',
-      'auth/weak-password':        '❌ Password must be at least 6 characters.',
-      'auth/too-many-requests':    '❌ Too many attempts. Please wait a moment.',
+    var map = {
+      'auth/user-not-found':         '❌ No account found with that email.',
+      'auth/wrong-password':         '❌ Incorrect password. Please try again.',
+      'auth/invalid-credential':     '❌ Incorrect email or password.',
+      'auth/invalid-email':          '❌ Please enter a valid email address.',
+      'auth/email-already-in-use':   '❌ An account with that email already exists.',
+      'auth/weak-password':          '❌ Password must be at least 6 characters.',
+      'auth/too-many-requests':      '❌ Too many attempts. Please wait a moment.',
       'auth/network-request-failed': '❌ Network error. Check your connection.',
-      'auth/popup-closed-by-user': '❌ Sign-in popup was closed. Please try again.',
+      'auth/popup-closed-by-user':   '❌ Sign-in popup was closed. Please try again.',
+      'auth/popup-blocked':          '❌ Popup was blocked by your browser. Please allow popups for this site.',
     };
-    return map[code] || '❌ Something went wrong. Please try again.';
+    return map[code] || '❌ Something went wrong (' + code + ')';
   }
 
   function setLoading(btnId, loading, defaultText) {
-    const btn = document.getElementById(btnId);
+    var btn = document.getElementById(btnId);
     btn.disabled = loading;
     btn.textContent = loading ? 'Please wait…' : defaultText;
   }
 
+  // ── AUTO-REDIRECT IF ALREADY SIGNED IN ────────────────────
+  auth.onAuthStateChanged(function(user) {
+    if (user) saveSessionAndRedirect(user);
+  });
+
   // ── TAB SWITCHING ─────────────────────────────────────────
   function switchTab(tab) {
-    const isSignin = tab === 'signin';
+    var isSignin = tab === 'signin';
     document.getElementById('signin-form').style.display = isSignin ? '' : 'none';
     document.getElementById('signup-form').style.display = isSignin ? 'none' : '';
     document.getElementById('tab-si').classList.toggle('active', isSignin);
@@ -251,26 +254,25 @@
     document.getElementById('card-subtitle').textContent = isSignin
       ? 'Sign in to access your SolveSpace dashboard'
       : 'Start learning math with SolveSpace today';
-    ['si-error','si-success','su-error','su-success'].forEach(id => {
+    ['si-error','si-success','su-error','su-success'].forEach(function(id) {
       document.getElementById(id).textContent = '';
     });
   }
 
   // ── SIGN IN ───────────────────────────────────────────────
   function handleSignIn() {
-    const email = document.getElementById('si-email').value.trim();
-    const pass  = document.getElementById('si-password').value;
-    const errEl = document.getElementById('si-error');
+    var email = document.getElementById('si-email').value.trim();
+    var pass  = document.getElementById('si-password').value;
+    var errEl = document.getElementById('si-error');
     errEl.textContent = '';
 
     if (!email) { errEl.textContent = '⚠️ Please enter your email.'; return; }
     if (!pass)  { errEl.textContent = '⚠️ Please enter your password.'; return; }
 
     setLoading('si-btn', true, 'Sign In →');
-
     auth.signInWithEmailAndPassword(email, pass)
-      .then(result => saveSessionAndRedirect(result.user))
-      .catch(err => {
+      .then(function(result) { saveSessionAndRedirect(result.user); })
+      .catch(function(err) {
         errEl.textContent = friendlyError(err.code);
         document.getElementById('si-password').value = '';
         setLoading('si-btn', false, 'Sign In →');
@@ -279,11 +281,12 @@
 
   // ── SIGN UP ───────────────────────────────────────────────
   function handleSignUp() {
-    const name  = document.getElementById('su-name').value.trim();
-    const email = document.getElementById('su-email').value.trim();
-    const pass  = document.getElementById('su-password').value;
-    const errEl = document.getElementById('su-error');
-    const sucEl = document.getElementById('su-success');
+    var name  = document.getElementById('su-name').value.trim();
+    var email = document.getElementById('su-email').value.trim();
+    var role  = document.getElementById('su-role').value;
+    var pass  = document.getElementById('su-password').value;
+    var errEl = document.getElementById('su-error');
+    var sucEl = document.getElementById('su-success');
     errEl.textContent = '';
     sucEl.textContent = '';
 
@@ -292,49 +295,70 @@
     if (pass.length < 6) { errEl.textContent = '⚠️ Password must be at least 6 characters.'; return; }
 
     setLoading('su-btn', true, 'Create Account →');
-
     auth.createUserWithEmailAndPassword(email, pass)
-      .then(result => result.user.updateProfile({ displayName: name }).then(() => result.user))
-      .then(user => {
+      .then(function(result) {
+        return result.user.updateProfile({ displayName: name }).then(function() { return result.user; });
+      })
+      .then(function(user) {
+        // Fire-and-forget Firestore write
+        try {
+          db.collection('users').doc(user.uid).set({
+            name: name, email: email, role: role,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            completed: [], quizScores: {}
+          }).catch(function() {});
+        } catch (e) {}
         sucEl.textContent = '✅ Account created! Redirecting…';
         saveSessionAndRedirect(user);
       })
-      .catch(err => {
+      .catch(function(err) {
         errEl.textContent = friendlyError(err.code);
         setLoading('su-btn', false, 'Create Account →');
       });
   }
 
-  // ── GOOGLE SIGN IN — popup method ────────────────────────
+  // ── GOOGLE SIGN IN (popup — same as original working version) ─
   function handleGoogle() {
-    const provider = new firebase.auth.GoogleAuthProvider();
+    var provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('email');
     provider.addScope('profile');
     auth.signInWithPopup(provider)
       .then(function(result) {
+        // Fire-and-forget Firestore write
+        try {
+          db.collection('users').doc(result.user.uid).get().then(function(snap) {
+            if (!snap.exists) {
+              db.collection('users').doc(result.user.uid).set({
+                name: result.user.displayName || result.user.email.split('@')[0],
+                email: result.user.email, role: 'student',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                completed: [], quizScores: {}
+              }).catch(function() {});
+            }
+          }).catch(function() {});
+        } catch (e) {}
         saveSessionAndRedirect(result.user);
       })
       .catch(function(err) {
-        console.error('Google sign-in error:', err);
         document.getElementById('si-error').textContent = friendlyError(err.code);
       });
   }
 
   // ── FORGOT PASSWORD ───────────────────────────────────────
   function handleForgot() {
-    const email = document.getElementById('si-email').value.trim();
-    const errEl = document.getElementById('si-error');
-    const sucEl = document.getElementById('si-success');
+    var email = document.getElementById('si-email').value.trim();
+    var errEl = document.getElementById('si-error');
+    var sucEl = document.getElementById('si-success');
     if (!email) { errEl.textContent = '⚠️ Enter your email above first.'; return; }
     auth.sendPasswordResetEmail(email)
-      .then(() => { sucEl.textContent = '📧 Reset email sent! Check your inbox.'; errEl.textContent = ''; })
-      .catch(err => { errEl.textContent = friendlyError(err.code); });
+      .then(function() { sucEl.textContent = '📧 Reset email sent! Check your inbox.'; errEl.textContent = ''; })
+      .catch(function(err) { errEl.textContent = friendlyError(err.code); });
   }
 
   // ── ENTER KEY ─────────────────────────────────────────────
   document.addEventListener('keydown', function(e) {
     if (e.key !== 'Enter') return;
-    const signupVisible = document.getElementById('signup-form').style.display !== 'none';
+    var signupVisible = document.getElementById('signup-form').style.display !== 'none';
     if (signupVisible) handleSignUp(); else handleSignIn();
   });
 </script>
