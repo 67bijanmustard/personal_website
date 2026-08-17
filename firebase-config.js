@@ -2,12 +2,12 @@
 // All pages that load this file get window.auth, window.db, and window.storage.
 (function () {
   var cfg = {
-    apiKey:            "AIzaSyBCb0Cklt60pdxBE7oLuyuGlYdJoK4iqSk",
-    authDomain:        "dv-peer-tutoring.firebaseapp.com",
-    projectId:         "dv-peer-tutoring",
-    storageBucket:     "dv-peer-tutoring.firebasestorage.app",
-    messagingSenderId: "213126769176",
-    appId:             "1:213126769176:web:a89c92a8c1f80096cc316d"
+    apiKey:            "AIzaSyD8Awegn3klfuxft439QO05sS6i_JMIF5M",
+    authDomain:        "dv-peer-tutoring-website.firebaseapp.com",
+    projectId:         "dv-peer-tutoring-website",
+    storageBucket:     "dv-peer-tutoring-website.firebasestorage.app",
+    messagingSenderId: "956297409423",
+    appId:             "1:956297409423:web:1fdb8b42c9f271a4a1d1fa"
   };
 
   // Guard against double-init (multiple scripts on the same page)
